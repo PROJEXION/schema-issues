@@ -1,0 +1,5634 @@
+type AISummaryWidgetDefinition implements WidgetDefinition {
+    dashboardId: ID!
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input AISummaryWidgetDefinitionInput {
+    title: String
+    dashboardId: ID!
+}
+
+type AISummaryWidgetPayload implements WidgetPayload {
+    widgetDefinition: AISummaryWidgetDefinition!
+    latestCellSummaryRun: CellSummaryRun
+    renderedSteps: [RenderedStep!]!
+}
+
+input AcceptInviteInput {
+    token: String!
+    clientMutationId: String
+}
+
+type AcceptInvitePayload {
+    clientMutationId: String
+}
+
+input AcceptInviteWithNewUserInput {
+    token: String!
+    email: String!
+    name: String!
+    password: String!
+    clientMutationId: String
+}
+
+type AcceptInviteWithNewUserPayload {
+    clientMutationId: String
+}
+
+interface Accepts {
+    kind: PortPayloadKind!
+}
+
+type AcceptsData implements Accepts {
+    kind: PortPayloadKind!
+}
+
+type AcceptsValue implements Accepts {
+    kind: PortPayloadKind!
+}
+
+type Account implements Node {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    groupAssociations: [AccountGroupAssociation!]!
+    isDeleted: Boolean!
+    registeredAt: ZonedDateTime!
+    extensions: [AccountExtension!]!
+    extension(accountExtensionKind: AccountExtensionKind!): AccountExtension
+}
+
+"A connection to a list of items."
+type AccountConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [AccountEdge]
+}
+
+"An edge in a connection."
+type AccountEdge {
+    "The item at the end of the edge."
+    node: Account!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+interface AccountExtension {
+    kind: AccountExtensionKind!
+}
+
+enum AccountExtensionKind {
+    Projexion
+}
+
+type AccountGroup implements Node {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    permissions: [Permission!]!
+    isBuiltIn: Boolean!
+}
+
+type AccountGroupAssociation {
+    group: AccountGroup
+}
+
+"A connection to a list of items."
+type AccountGroupsConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [AccountGroupsEdge]
+}
+
+"An edge in a connection."
+type AccountGroupsEdge {
+    "The item at the end of the edge."
+    node: AccountGroup!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+input AcknowledgeBatchInput {
+    batchId: ID!
+    clientMutationId: String
+}
+
+type AcknowledgeBatchPayload {
+    batch: Batch!
+    clientMutationId: String
+}
+
+enum Action {
+    Favorite
+    Import
+}
+
+type ActionCell implements TableModelCell {
+    columnKey: String!
+    value: ValueDataInterface!
+    action: Action!
+    dataPointId: ID!
+    project: Project
+    kind: CellKindEnum!
+}
+
+type ActionColumnDefinition implements TableColumnDefinition {
+    action: Action!
+    name: String!
+    kind: TableColumnDefinitionKind!
+}
+
+input ActionColumnDefinitionInput {
+    name: String!
+    action: Action!
+}
+
+input AddWidgetInput {
+    dashboardId: ID!
+    widgetDefinition: WidgetDefinitionInput!
+    clientMutationId: String
+}
+
+type AddWidgetPayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+"Data only accessible by the admin"
+type AdminMutationType {
+    Data: DataAdminMutationSchema!
+    Files: FilesAdminMutationSchema!
+    Tasks: TasksAdminMutationSchema!
+    Management: ManagementAdminMutationSchema!
+    Email: EmailAdminMutationSchema!
+    Auth: AuthAdminMutationSchema!
+}
+
+"Data only accessible by the admin"
+type AdminQueryType {
+    Email: EmailAdminSchema!
+    Versions: VersionsAdminSchema!
+    Files: FilesAdminSchema!
+    Feedback: FeedbackAdminSchema!
+    Management: ManagementAdminSchema!
+    Redis: RedisAdminSchema!
+}
+
+type AgaveApiConnection implements Node {
+    "The ID of an object"
+    id: ID!
+    companyName: String
+    systemSlug: String
+}
+
+"A connection to a list of items."
+type AgaveApiConnectionsConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [AgaveApiConnectionsEdge]
+}
+
+"An edge in a connection."
+type AgaveApiConnectionsEdge {
+    "The item at the end of the edge."
+    node: AgaveApiConnection!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type AgaveMutations {
+    createAgaveLinkToken(input: CreateAgaveLinkTokenInput!): CreateAgaveLinkTokenPayload
+    exchangeAgaveLinkToken(input: ExchangeAgaveLinkTokenInput!): ExchangeAgaveLinkTokenPayload
+    deleteAgaveApiConnection(input: DeleteAgaveApiConnectionInput!): DeleteAgaveApiConnectionPayload
+}
+
+type AgaveQueries {
+    ActiveAgaveIntegrations(before: String, after: String, first: Int, last: Int): AgaveApiConnectionsConnection!
+}
+
+type AllAvailableDates implements StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    onlyBaseline: Boolean!
+}
+
+input AllAvailableDatesInput {
+    onlyBaseline: Boolean!
+}
+
+input AllProjectsSelectedInput {
+    dummy: String
+}
+
+type AllProjectsSlice implements DataSlice {
+    kind: DataSliceKindEnum!
+}
+
+enum AnalysisStatus {
+    NotImported
+    ImportedWithErrors
+    Imported
+}
+
+type AndFilter implements DataPointFilter {
+    subFilters: [FieldFilter!]!
+    kind: FilterKind!
+}
+
+input AndFilterInput {
+    subFilters: [FieldFilterInput!]!
+}
+
+input AnonymizeAccountAdminInput {
+    id: ID!
+    clientMutationId: String
+}
+
+type AnonymizeAccountAdminPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input AnonymizeUserInput {
+    userId: ID!
+    clientMutationId: String
+}
+
+type AnonymizeUserPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+type ArithmeticLogic implements CalculationLogic {
+    configuration: ArithmeticLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type ArithmeticLogicConfiguration implements CalculationLogicConfiguration {
+    operator: ArithmeticOperator!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input ArithmeticLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    operator: ArithmeticOperator!
+}
+
+enum ArithmeticOperator {
+    Add
+    Subtract
+    Multiply
+    Divide
+    Abs
+}
+
+"Data only accessible by the admin"
+type AuthAdminMutationSchema {
+    loginAsUserJwt(input: LoginAsUserJwtInput!): LoginAsUserJwtPayload
+    anonymizeUser(input: AnonymizeUserInput!): AnonymizeUserPayload
+    editUser(input: EditUserInput!): EditUserPayload
+}
+
+type AuthMutations {
+    loginJwt(input: LoginJwtInput!): LoginJwtPayload
+    switchAccount(input: SwitchAccountInput!): SwitchAccountPayload
+    changePassword(input: ChangePasswordInput!): ChangePasswordPayload
+}
+
+type AuthQueries {
+    InvitationByToken(token: String!): Invitation
+}
+
+"Data partaining to the current user"
+type AuthViewerSchema {
+    currentUser: CurrentUser
+    currentAccount: Account
+}
+
+enum AutomaticCalculationSetting {
+    CalculateAutomatically
+    NotAutomatic
+}
+
+type BasicFieldType implements FieldType {
+    kind: FieldTypeKind!
+    valueKind: ValueType!
+}
+
+input BasicFieldTypeInput {
+    valueKind: ValueTypeEnum!
+}
+
+type Batch implements Node {
+    "The ID of an object"
+    id: ID!
+    messages: [BatchMessage!]!
+    errors: [BatchMessage!]!
+    warnings: [BatchMessage!]!
+    status: BatchStatus!
+    progress: BatchProgress!
+}
+
+type BatchMessage {
+    messageType: MessageType!
+    message: String!
+    additionalMessage: String
+    solution: String
+    timestamp: ZonedDateTime!
+}
+
+type BatchMutations {
+    acknowledgeBatch(input: AcknowledgeBatchInput!): AcknowledgeBatchPayload
+    cancelBatch(input: CancelBatchInput!): CancelBatchPayload
+}
+
+type BatchProgress {
+    openTodos: Int!
+    executedTodos: Int!
+    currentTier: Int!
+}
+
+enum BatchStatus {
+    InProgress
+    Succeeded
+    Failed
+    Canceled
+    Acknowledged
+}
+
+enum BatchType {
+    projectImport
+    portfolioImport
+}
+
+type BatchUpdate {
+    "The ID of an object"
+    id: ID!
+    key: String!
+    messages: [BatchMessage!]!
+    errors: [BatchMessage!]!
+    warnings: [BatchMessage!]!
+    status: BatchStatus!
+    progress: BatchProgress!
+}
+
+"Data partaining to the current user"
+type BatchViewerSchema {
+    portfolioImportUpdate: BatchUpdate!
+}
+
+type BetweenParameterSnapshotDates implements StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    minInclusiveKey: String
+    maxExclusiveKey: String
+    onlyBaseline: Boolean!
+}
+
+input BetweenParameterSnapshotDatesInput {
+    minInclusiveKey: String
+    maxExclusiveKey: String
+    onlyBaseline: Boolean!
+}
+
+type BetweenSnapshotDates implements StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    minInclusive: LocalDate
+    maxExclusive: LocalDate
+    onlyBaseline: Boolean!
+}
+
+input BetweenSnapshotDatesInput {
+    minInclusive: LocalDate
+    maxExclusive: LocalDate
+    onlyBaseline: Boolean!
+}
+
+"The `BigDecimal` scalar type represents signed fractional values with arbitrary precision."
+scalar BigDecimal
+
+"The `Boolean` scalar type represents `true` or `false`."
+scalar Boolean
+
+type BooleanValueData implements ValueDataInterface {
+    boolean: Boolean!
+    kind: ValueTypeEnum!
+}
+
+input BooleanValueDataInput {
+    boolean: Boolean!
+}
+
+enum BudgetStatus {
+    HasBudget
+    HasNoBudget
+}
+
+type ByDataSlice implements SourceResolution {
+    dataSlice: DataSlice!
+    kind: SourceResolutionKindEnum!
+}
+
+input ByDataSliceInput {
+    dataSlice: ProjectSelectionInput!
+}
+
+type ByParameterSlice implements SourceResolution {
+    projectIdParameter: String!
+    kind: SourceResolutionKindEnum!
+}
+
+input ByParameterSliceInput {
+    projectIdParameter: String!
+}
+
+type CalculationColumnDefinition implements TableColumnDefinition {
+    portSelection: PortSelection!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+    name: String!
+    kind: TableColumnDefinitionKind!
+}
+
+input CalculationColumnDefinitionInput {
+    name: String!
+    portSelection: PortSelectionInput!
+    conversion: ConversionOperationInput!
+    rounding: RoundingOperationInput!
+}
+
+enum CalculationConfigurationKind {
+    arithmeticLogic
+    dataReferenceLogic
+    deduplicateLogic
+    deltaLogic
+    filterLogic
+    fixedValueLogic
+    groupByLogic
+    joinLogic
+    comparisonLogic
+    scoreLogic
+    scoreWithBracketsLogic
+    sourceLogic
+    statisticsLogic
+    valueReferenceLogic
+    weightedAverageLogic
+    weightedAverageWithBracketsLogic
+    emitterLogic
+    portfolioStatisticsLogic
+    portfolioAverageLogic
+    fieldExtractorLogic
+    referenceExtractorLogic
+}
+
+type CalculationDataSource implements TableDataSource {
+    input: TableWidgetInput!
+    kind: TableDataSourceKind!
+}
+
+input CalculationDataSourceInput {
+    input: TableWidgetInputInput!
+}
+
+type CalculationDefinition {
+    "The ID of an object"
+    id: ID!
+    logic: CalculationLogic!
+}
+
+type CalculationDescription {
+    name: String!
+    description: String
+    tags: [Tag!]!
+}
+
+input CalculationDescriptionInput {
+    name: String!
+    description: String
+    tagIds: [ID!]!
+}
+
+type CalculationGraph implements Node {
+    "The ID of an object"
+    id: ID!
+    calculations: [CalculationDefinition!]!
+    configuration: CalculationGraphConfiguration!
+    wiring: [Wiring!]!
+    scope: DataScopeTypeEnum!
+    owner: GraphOwnerEnum!
+    positions: [CalculationPosition!]!
+    publishedGraph: PublishedCalculationGraph
+}
+
+type CalculationGraphConfiguration {
+    name: String!
+}
+
+"A connection to a list of items."
+type CalculationGraphConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [CalculationGraphEdge]
+}
+
+"An edge in a connection."
+type CalculationGraphEdge {
+    "The item at the end of the edge."
+    node: CalculationGraph!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+interface CalculationLogic {
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+    configuration: CalculationLogicConfiguration!
+}
+
+interface CalculationLogicConfiguration {
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input CalculationLogicConfigurationInput {
+    filterLogic: FilterLogicConfigurationInput
+    sourceLogic: SourceLogicConfigurationInput
+    groupByLogic: GroupByLogicConfigurationInput
+    joinLogic: JoinLogicConfigurationInput
+    arithmeticLogic: ArithmeticLogicConfigurationInput
+    deduplicateLogic: DeduplicateLogicConfigurationInput
+    statisticsLogic: StatisticsLogicConfigurationInput
+    scoreLogic: ScoreLogicConfigurationInput
+    scoreWithBracketsLogic: ScoreWithBracketsLogicConfigurationInput
+    dataReferenceLogic: DataReferenceLogicConfigurationInput
+    valueReferenceLogic: ValueReferenceLogicConfigurationInput
+    fixedValueLogic: FixedValueLogicConfigurationInput
+    deltaLogic: DeltaLogicConfigurationInput
+    weightedAverageLogic: WeightedAverageLogicConfigurationInput
+    weightedAverageWithBracketsLogic: WeightedAverageWithBracketsLogicConfigurationInput
+    emitterLogic: EmitterLogicConfigurationInput
+    portfolioStatisticsLogic: PortfolioStatisticsLogicConfigurationInput
+    comparisonLogic: ComparisonLogicConfigurationInput
+    fieldExtractorLogic: FieldExtractorLogicConfigurationInput
+    referenceExtractorLogic: ReferenceExtractorLogicConfigurationInput
+}
+
+type CalculationPosition {
+    x: Float!
+    y: Float!
+    calculationDefinitionId: ID!
+}
+
+input CalculationPositionInput {
+    x: Float!
+    y: Float!
+    calculationDefinitionId: ID!
+}
+
+enum CalculationResolutionEnum {
+    Weekly
+    Monthly
+}
+
+type CalculationSelection {
+    calculationGraphId: ID!
+    calculationDefinitionId: ID!
+}
+
+input CalculationSelectionInput {
+    calculationGraphId: ID!
+    calculationDefinitionId: ID!
+}
+
+type CalculationSource implements TableData {
+    typeReference: TypeReference!
+    sourceMetaId: ID!
+    kind: TableDataKind!
+}
+
+type CalculationsMutations {
+    createCalculationGraph(input: CreateCalculationGraphInput!): CreateCalculationGraphPayload
+    duplicateGraph(input: DuplicateGraphInput!): DuplicateGraphPayload
+    editName(input: EditCalculationGraphNameInput!): EditCalculationGraphNamePayload
+    editScope(input: EditCalculationGraphScopeInput!): EditCalculationGraphScopePayload
+    pasteIntoGraph(input: PasteIntoGraphInput!): PasteIntoGraphPayload
+    previewGraph(input: PreviewGraphInput!): PreviewGraphPayload
+    editOwner(input: EditCalculationGraphOwnerInput!): EditCalculationGraphOwnerPayload
+    deleteCalculationGraphs(input: DeleteCalculationGraphInput!): DeleteCalculationGraphPayload
+    createCalculationDefinition(input: CreateCalculationDefinitionInput!): CreateCalculationDefinitionPayload
+    deleteCalculationDefinition(input: DeleteCalculationDefinitionInput!): DeleteCalculationDefinitionPayload
+    connectCalculationToCalculation(input: ConnectCalculationToCalculationDataInput!): ConnectCalculationToCalculationDataPayload
+    disconnectWiring(input: DisconnectWiringInput!): DisconnectWiringPayload
+    setCalculationLogicConfiguration(input: SetCalculationLogicConfigurationInput!): SetCalculationLogicConfigurationPayload
+    copyCalculationGraphToClipboard(input: CopyCalculationGraphToClipboardInput!): CopyCalculationGraphToClipboardPayload
+    pasteCalculationGraphFromClipboard(input: PasteCalculationGraphFromClipboardInput!): PasteCalculationGraphFromClipboardPayload
+    setPosition(input: SetPositionInput!): SetPositionPayload
+    setPositions(input: SetPositionsInput!): SetPositionsPayload
+    createSystemCalculationGraphs(input: CreateSystemCalculationGraphsInput!): CreateSystemCalculationGraphsPayload
+    publishCalculationGraph(input: PublishCalculationGraphInput!): PublishCalculationGraphPayload
+}
+
+type CalculationsQueries {
+    CalculationGraphs(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!], excludeIds: [ID!]): CalculationGraphConnection!
+    BuiltInParameters: [ParameterKey!]!
+}
+
+type CalendarAxisTick implements XAxisTick {
+    dataDate: LocalDate!
+
+    "The ID of an object"
+    id: ID!
+    kind: XAxisType!
+}
+
+type CalendarXAxis implements XAxis {
+    ticks: [CalendarAxisTick!]!
+    axisId: Int!
+    kind: XAxisType!
+    scopes: [DataScope!]!
+}
+
+input CancelBatchInput {
+    batchId: ID!
+    clientMutationId: String
+}
+
+type CancelBatchPayload {
+    batch: Batch!
+    clientMutationId: String
+}
+
+type Cell {
+    "The ID of an object"
+    id: ID!
+    widgetDefinition: WidgetDefinition!
+    widget(widgetGenerationContext: WidgetGenerationContextInput!): Widget!
+    layout: CellLayout!
+    isGap: Boolean!
+}
+
+enum CellKindEnum {
+    value
+    action
+}
+
+type CellLayout {
+    x: Int!
+    y: Int!
+    w: Int!
+    h: Int!
+}
+
+input CellLayoutInput {
+    x: Int!
+    y: Int!
+    w: Int!
+    h: Int!
+}
+
+type CellSummary {
+    data: CellSummaryData!
+}
+
+interface CellSummaryData {
+    kind: DataScopeTypeEnum!
+}
+
+type CellSummaryRun {
+    "The ID of an object"
+    id: ID!
+    cellSummaries: [CellSummary!]!
+}
+
+type CellSummary_NoSummary implements CellSummaryData {
+    kind: DataScopeTypeEnum!
+}
+
+type CellSummary_WidgetSummaryFailed implements CellSummaryData {
+    widgetKind: WidgetType!
+    kind: DataScopeTypeEnum!
+}
+
+type CellSummary_WidgetSummarySucceeded implements CellSummaryData {
+    widgetKind: WidgetType!
+    summary: String!
+    kind: DataScopeTypeEnum!
+}
+
+input ChangeAccountGroupsInput {
+    accountId: ID!
+    groupRefs: [ID!]!
+    clientMutationId: String
+}
+
+type ChangeAccountGroupsPayload {
+    account: Account!
+    clientMutationId: String
+}
+
+input ChangePasswordInput {
+    newPassword: String!
+    clientMutationId: String
+}
+
+type ChangePasswordPayload {
+    clientMutationId: String
+}
+
+input ChangeUserGroupsAdminInput {
+    userId: ID!
+    accountId: ID!
+    groupRefs: [ID!]!
+    clientMutationId: String
+}
+
+type ChangeUserGroupsAdminPayload {
+    edge: UserInAccountEdge!
+    clientMutationId: String
+}
+
+input ChangeUserInAccountGroupsInput {
+    userId: ID!
+    groupRefs: [ID!]!
+    clientMutationId: String
+}
+
+type ChangeUserInAccountGroupsPayload {
+    edge: UserInAccountEdge!
+    clientMutationId: String
+}
+
+enum CheckState {
+    Passed
+    Flag
+    Fail
+}
+
+type CheckValueData implements ValueDataInterface {
+    state: CheckState!
+    kind: ValueTypeEnum!
+}
+
+input CheckValueDataInput {
+    state: CheckState!
+}
+
+type ClosestToParameterSnapshotDate implements StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    parameterKey: String!
+    lookBackDays: Int!
+    onlyBaseline: Boolean!
+}
+
+input ClosestToParameterSnapshotDateInput {
+    parameterKey: String!
+    onlyBaseline: Boolean!
+    lookBackDays: Int!
+}
+
+type ClosestToSpecificSnapshotDate implements StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    snapshotDate: LocalDate!
+    lookBackDays: Int!
+    onlyBaseline: Boolean!
+}
+
+input ClosestToSpecificSnapshotDateInput {
+    snapshotDate: LocalDate!
+    onlyBaseline: Boolean!
+    lookBackDays: Int!
+}
+
+type ColumnMapping {
+    fromColumn: String!
+    toField: String!
+}
+
+input ColumnMappingInput {
+    fromColumn: String!
+    toField: String!
+}
+
+type Comparison {
+    comparisonField: String!
+    fieldName: String!
+}
+
+input ComparisonInput {
+    fieldName: String!
+    comparisonField: String!
+}
+
+type ComparisonLogic implements CalculationLogic {
+    configuration: ComparisonLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type ComparisonLogicConfiguration implements CalculationLogicConfiguration {
+    mergeOnField: String!
+    comparisons: [Comparison!]!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input ComparisonLogicConfigurationInput {
+    comparisons: [ComparisonInput!]!
+    description: CalculationDescriptionInput!
+    mergeOnField: String!
+}
+
+type CompatibleOperations {
+    types: [ValueTypeEnum!]!
+    operator: ValueOperatorEnum!
+}
+
+enum ComponentKindEnum {
+    currentValue
+}
+
+input ConnectCalculationToCalculationDataInput {
+    calculationGraphId: ID!
+    fromCalculation: ID!
+    from: ID!
+    toCalculation: ID!
+    to: ID!
+    clientMutationId: String
+}
+
+type ConnectCalculationToCalculationDataPayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+enum ConstructionAdminStatus {
+    NoData
+    HasData
+}
+
+interface ConversionOperation {
+    kind: ConversionOperationKindEnum!
+}
+
+input ConversionOperationInput {
+    doConvert: DoConvertInput
+    dontConvert: DontConvertInput
+}
+
+enum ConversionOperationKindEnum {
+    dontConvert
+    doConvert
+}
+
+type ConversionOption {
+    canConvertTo: ValueTypeEnum!
+    renderableIn: [WidgetType!]!
+}
+
+input CopyCalculationGraphToClipboardInput {
+    calculationGraphId: ID!
+    clientMutationId: String
+}
+
+type CopyCalculationGraphToClipboardPayload {
+    string: String!
+    clientMutationId: String
+}
+
+input CreateAccountAdminInput {
+    name: String!
+    clientMutationId: String
+}
+
+type CreateAccountAdminPayload {
+    edge: AccountEdge!
+    clientMutationId: String
+}
+
+input CreateAgaveLinkTokenInput {
+    clientMutationId: String
+}
+
+type CreateAgaveLinkTokenPayload {
+    linkToken: String!
+    clientMutationId: String
+}
+
+input CreateCalculationDefinitionInput {
+    calculationGraphId: ID!
+    calculationLogicKind: CalculationConfigurationKind!
+    clientMutationId: String
+}
+
+type CreateCalculationDefinitionPayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+input CreateCalculationGraphInput {
+    name: String!
+    clientMutationId: String
+}
+
+type CreateCalculationGraphPayload {
+    edge: CalculationGraphEdge!
+    clientMutationId: String
+}
+
+input CreateCellSummariesInput {
+    selectedPercentage: BigDecimal!
+    dashboardId: ID!
+    clientMutationId: String
+}
+
+type CreateCellSummariesPayload {
+    cellSummaryRun: CellSummaryRun!
+    clientMutationId: String
+}
+
+input CreateCustomTypeDefinitionInput {
+    data: CustomTypeDefinitionInput!
+    clientMutationId: String
+}
+
+type CreateCustomTypeDefinitionPayload {
+    edge: CustomTypeDefinitionEdge!
+    clientMutationId: String
+}
+
+input CreateDashboardDistributionInput {
+    dashboardId: ID!
+    distributionData: DistributionDataInput!
+    clientMutationId: String
+}
+
+type CreateDashboardDistributionPayload {
+    edge: DashboardDistributionEdge!
+    clientMutationId: String
+}
+
+input CreateDashboardFromLibraryInput {
+    publishedDashboardId: ID!
+    replacements: [ReplacementProjectInput!]!
+    scope: DataScopeInput!
+    clientMutationId: String
+}
+
+type CreateDashboardFromLibraryPayload {
+    edge: DashboardEdge!
+    clientMutationId: String
+}
+
+input CreateDashboardInput {
+    name: String!
+    scope: DataScopeInput!
+    clientMutationId: String
+}
+
+type CreateDashboardPayload {
+    edge: DashboardEdge!
+    clientMutationId: String
+}
+
+input CreateGroupInput {
+    name: String!
+    permissions: [String!]!
+    clientMutationId: String
+}
+
+type CreateGroupPayload {
+    edge: UserInAccountGroupsEdge!
+    clientMutationId: String
+}
+
+input CreateImportDefinitionInput {
+    importDefinitionData: ImportDefinitionDataInput!
+    clientMutationId: String
+}
+
+type CreateImportDefinitionPayload {
+    edge: ImportDefinitionEdge!
+    clientMutationId: String
+}
+
+input CreatePersonalizedEmailTemplateInput {
+    data: PersonalizedEmailTemplateInput!
+    clientMutationId: String
+}
+
+type CreatePersonalizedEmailTemplatePayload {
+    data: PersonalizedEmailTemplatesEdge!
+    clientMutationId: String
+}
+
+input CreateProjectInput {
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type CreateProjectPayload {
+    edge: ProjectEdge!
+    clientMutationId: String
+}
+
+input CreateProjectRegionInput {
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type CreateProjectRegionPayload {
+    edge: ImportedDataPointEdge!
+    clientMutationId: String
+}
+
+input CreateProjectStageInput {
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type CreateProjectStagePayload {
+    edge: ImportedDataPointEdge!
+    clientMutationId: String
+}
+
+input CreateProjectTypeInput {
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type CreateProjectTypePayload {
+    edge: ImportedDataPointEdge!
+    clientMutationId: String
+}
+
+input CreateSystemCalculationGraphsInput {
+    clientMutationId: String
+}
+
+type CreateSystemCalculationGraphsPayload {
+    clientMutationId: String
+}
+
+input CreateTagInput {
+    data: TagDataInput
+    clientMutationId: String
+}
+
+type CreateTagPayload {
+    edge: TagEdge!
+    clientMutationId: String
+}
+
+input CreateUserInAccountAdminInput {
+    email: String!
+    name: String!
+    password: String!
+    accountId: ID!
+    groupId: ID
+    clientMutationId: String
+}
+
+type CreateUserInAccountAdminPayload {
+    edge: UserInAccountEdge!
+    clientMutationId: String
+}
+
+type CreatedBySystem implements CreationTag {
+    "The ID of an object"
+    id: ID!
+    kind: CreationTagKindEnum!
+    createdAt: ZonedDateTime!
+}
+
+type CreatedByUser implements CreationTag {
+    "The ID of an object"
+    id: ID!
+    kind: CreationTagKindEnum!
+    createdAt: ZonedDateTime!
+}
+
+interface CreationTag {
+    "The ID of an object"
+    id: ID!
+    kind: CreationTagKindEnum!
+    createdAt: ZonedDateTime!
+}
+
+enum CreationTagKindEnum {
+    createdByUser
+    importedFromLibrary
+    createdBySystem
+}
+
+type CurrencyValueData implements ValueDataInterface {
+    currency: Float
+    kind: ValueTypeEnum!
+}
+
+input CurrencyValueDataInput {
+    currency: Float!
+}
+
+type CurrentUser {
+    user: User!
+    accounts: [Account!]!
+    permissionsInAccount: [Permission!]!
+}
+
+type CurrentValueComponent implements MultiValueWidgetComponentInterface {
+    valuesAtIntervals: [ValueAtDataDate!]!
+    input: MultiValueWidgetInput!
+    kind: ComponentKindEnum!
+}
+
+enum CurveTypeEnum {
+    Line
+    Bar
+}
+
+type CustomImportsMutations {
+    getPreview(input: GetPreviewInput!): GetPreviewPayload
+    createImportDefinition(input: CreateImportDefinitionInput!): CreateImportDefinitionPayload
+    editImportDefinition(input: EditImportDefinitionInput!): EditImportDefinitionPayload
+    deleteImportDefinitions(input: DeleteImportDefinitionInput!): DeleteImportDefinitionPayload
+    deleteImportFile(input: DeleteImportFileInput!): DeleteImportFilePayload
+    setDataDate(input: SetDataDateInput!): SetDataDatePayload
+}
+
+type CustomImportsQueries {
+    ImportDefinitions(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!]): ImportDefinitionConnection!
+}
+
+type CustomTypeDefinition implements Node {
+    "The ID of an object"
+    id: ID!
+    data: TypeDefinition!
+}
+
+"A connection to a list of items."
+type CustomTypeDefinitionConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [CustomTypeDefinitionEdge]
+}
+
+"An edge in a connection."
+type CustomTypeDefinitionEdge {
+    "The item at the end of the edge."
+    node: CustomTypeDefinition!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+input CustomTypeDefinitionInput {
+    name: String!
+    fields: [FieldDefinitionInput!]!
+    scope: DataScopeTypeEnum!
+}
+
+type Dashboard implements Node {
+    "The ID of an object"
+    id: ID!
+    configuration: DashboardConfiguration!
+    scope: DataScope!
+    creationTag: CreationTag!
+    cells: [Cell!]!
+    valuesCount: Int!
+    publishedAs: PublishedDashboard
+}
+
+type DashboardConfiguration {
+    name: String!
+    isFeatured: Boolean!
+    tagIds: [ID!]!
+    tags: [Tag!]!
+    previewFile: File
+}
+
+"A connection to a list of items."
+type DashboardConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [DashboardEdge]
+}
+
+type DashboardDistribution implements Node {
+    "The ID of an object"
+    id: ID!
+    dashboardRef: ID!
+    name: String!
+    recipients: [Recipient!]!
+    schedule: ScheduleInterface!
+    distributeImmediately: Boolean!
+}
+
+"A connection to a list of items."
+type DashboardDistributionConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [DashboardDistributionEdge]
+}
+
+"An edge in a connection."
+type DashboardDistributionEdge {
+    "The item at the end of the edge."
+    node: DashboardDistribution!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+"An edge in a connection."
+type DashboardEdge {
+    "The item at the end of the edge."
+    node: Dashboard!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type DashboardLibraryMutations {
+    publishDashboard(input: PublishDashboardInput!): PublishDashboardPayload
+    deletePublishedDashboard(input: DeletePublishedDashboardInput!): DeletePublishedDashboardPayload
+    createDashboardFromLibrary(input: CreateDashboardFromLibraryInput!): CreateDashboardFromLibraryPayload
+}
+
+type DashboardLibraryQueries {
+    PublishedDashboards(before: String, after: String, first: Int, last: Int, queryString: String, createdFromDashboardId: ID): PublishedDashboardConnection!
+}
+
+type DashboardMutations {
+    createDashboard(input: CreateDashboardInput!): CreateDashboardPayload
+    addWidget(input: AddWidgetInput!): AddWidgetPayload
+    setLayouts(input: SetLayoutsInput!): SetLayoutsPayload
+    setWidgetDefinition(input: SetWidgetDefinitionInput!): SetWidgetDefinitionPayload
+    removeCell(input: RemoveCellInput!): RemoveCellPayload
+    renderWidgets(input: RenderWidgetsInput!): RenderWidgetsPayload
+    retrieveWidgetFromCache(input: RetrieveWidgetFromCacheInput!): RetrieveWidgetFromCachePayload
+    setName(input: SetNameInput!): SetNamePayload
+    setTags(input: SetTagsInput!): SetTagsPayload
+    setIsFeatured(input: SetIsFeaturedInput!): SetIsFeaturedPayload
+    updatePreview(input: UpdatePreviewInput!): UpdatePreviewPayload
+    duplicateDashboard(input: DuplicateDashboardInput!): DuplicateDashboardPayload
+    deleteDashboards(input: DeleteDashboardInput!): DeleteDashboardPayload
+    downloadSourceDataTableMutation(input: DownloadSourceDataTableInput!): DownloadSourceDataTablePayload
+    createCellSummaries(input: CreateCellSummariesInput!): CreateCellSummariesPayload
+}
+
+type DashboardQueries {
+    Dashboards(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!], filterByProject: ID, filterByTags: [ID!], isFeatured: Boolean, filterByScope: DataScopeTypeEnum): DashboardConnection!
+    InputTree(limitByWidgetType: WidgetType): InputTree!
+    PortSelection(before: String, after: String, first: Int, last: Int, portSelection: PortSelectionInput!): PortSelection!
+    MultiValueWidgetDetails(widgetInputs: [MultiValueWidgetInputInput!]!): [MultiValueWidgetDetailComponent!]!
+}
+
+"Data only accessible by the admin"
+type DataAdminMutationSchema {
+    resetProjectSpecific(input: ResetProjectSpecificDataInput!): ResetProjectSpecificDataPayload
+}
+
+type DataMutations {
+    createCustomTypeDefinition(input: CreateCustomTypeDefinitionInput!): CreateCustomTypeDefinitionPayload
+    editCustomTypeDefinition(input: EditCustomTypeDefinitionInput!): EditCustomTypeDefinitionPayload
+    deleteCustomTypeDefinitions(input: DeleteCustomTypeDefinitionInput!): DeleteCustomTypeDefinitionPayload
+}
+
+type DataPayload implements PortPayload {
+    typeReference: TypeReference!
+    kind: PortPayloadKind!
+}
+
+interface DataPointFilter {
+    kind: FilterKind!
+}
+
+input DataPointFilterInput {
+    or: OrFilterInput
+    and: AndFilterInput
+    field: FieldFilterInput
+    isFavorite: IsFavoriteFilterInput
+}
+
+type DataPoints implements TableData {
+    typeReference: TypeReference!
+    dataPointIds: [ID!]!
+    kind: TableDataKind!
+}
+
+type DataQueries {
+    CustomTypeDefinitions(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!]): CustomTypeDefinitionConnection!
+    TypeDefinitions(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!], excludeBuiltInTypes: Boolean): TypeDefinitionConnection!
+}
+
+type DataReferenceLogic implements CalculationLogic {
+    configuration: DataReferenceLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type DataReferenceLogicConfiguration implements CalculationLogicConfiguration {
+    portTarget: PortSelection
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input DataReferenceLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    portTarget: PortSelectionInput
+}
+
+interface DataScope {
+    kind: DataScopeTypeEnum!
+}
+
+input DataScopeInput {
+    portfolio: GlobalScopeInput
+    project: ProjectScopeInput
+}
+
+enum DataScopeTypeEnum {
+    project
+    portfolio
+}
+
+interface DataSlice {
+    kind: DataSliceKindEnum!
+}
+
+enum DataSliceKindEnum {
+    allProjects
+    specificProject
+    specificProjects
+}
+
+type DataTypeDataSource implements TableDataSource {
+    typeDefinitionId: ID!
+    scope: DataScope!
+    kind: TableDataSourceKind!
+}
+
+input DataTypeDataSourceInput {
+    typeDefinitionId: ID!
+    scope: DataScopeInput!
+}
+
+type DateTimeRangeValueData implements ValueDataInterface {
+    fromDateTime: ZonedDateTime
+    toDateTime: ZonedDateTime
+    kind: ValueTypeEnum!
+}
+
+input DateTimeRangeValueDataInput {
+    fromDateTime: ZonedDateTime
+    toDateTime: ZonedDateTime
+}
+
+type DateTimeValueData implements ValueDataInterface {
+    dateTime: ZonedDateTime!
+    kind: ValueTypeEnum!
+}
+
+input DateTimeValueInput {
+    dateTime: ZonedDateTime!
+}
+
+type DateValueData implements ValueDataInterface {
+    date: LocalDate!
+    kind: ValueTypeEnum!
+}
+
+input DateValueInput {
+    date: LocalDate!
+}
+
+type DaysValueData implements ValueDataInterface {
+    days: Float
+    kind: ValueTypeEnum!
+}
+
+input DaysValueDataInput {
+    days: Float!
+}
+
+type DecimalRangeValueData implements ValueDataInterface {
+    fromDecimal: Float
+    toDecimal: Float
+    kind: ValueTypeEnum!
+}
+
+input DecimalRangeValueDataInput {
+    fromDecimal: Float
+    toDecimal: Float
+}
+
+type DeduplicateByField implements DeduplicationRule {
+    field: String!
+    takeRule: TakeRule!
+    kind: DeduplicationRuleKindEnum!
+}
+
+input DeduplicateByFieldInput {
+    field: String!
+    takeRule: TakeRule!
+    kind: DeduplicationRuleKindEnum!
+}
+
+type DeduplicateLogic implements CalculationLogic {
+    configuration: DeduplicateLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type DeduplicateLogicConfiguration implements CalculationLogicConfiguration {
+    deduplicateOn: String!
+    deduplicationRule: DeduplicationRule!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input DeduplicateLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    deduplicateOn: String!
+    deduplicationRule: DeduplicationRuleInput!
+}
+
+interface DeduplicationRule {
+    kind: DeduplicationRuleKindEnum!
+}
+
+input DeduplicationRuleInput {
+    firstEncountered: FirstEncounteredInput
+    byField: DeduplicateByFieldInput
+}
+
+enum DeduplicationRuleKindEnum {
+    firstEncountered
+    byField
+}
+
+input DeleteAgaveApiConnectionInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteAgaveApiConnectionPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteCalculationDefinitionInput {
+    calculationGraphId: ID!
+    calculationDefinitionId: ID!
+    clientMutationId: String
+}
+
+type DeleteCalculationDefinitionPayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+input DeleteCalculationGraphInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteCalculationGraphPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteCustomTypeDefinitionInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteCustomTypeDefinitionPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteDashboardDistributionInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteDashboardDistributionPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteDashboardInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteDashboardPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteFileInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteFilePayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteGroupInput {
+    id: ID!
+    clientMutationId: String
+}
+
+type DeleteGroupPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteImportDefinitionInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteImportDefinitionPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteImportFileInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteImportFilePayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteImportedDataPointInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteImportedDataPointPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteIntegrationSettingsInput {
+    integrationSettingsId: ID!
+    clientMutationId: String
+}
+
+type DeleteIntegrationSettingsPayload {
+    deletedId: ID!
+    clientMutationId: String
+}
+
+input DeleteInvitationInput {
+    invitationId: ID!
+    clientMutationId: String
+}
+
+type DeleteInvitationPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeletePersonalizedEmailTemplateInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeletePersonalizedEmailTemplatePayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteProjectRegionInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteProjectRegionPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteProjectStageInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteProjectStagePayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteProjectTypeInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteProjectTypePayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeletePublishedDashboardInput {
+    publishedDashboardId: ID!
+    clientMutationId: String
+}
+
+type DeletePublishedDashboardPayload {
+    deletedId: ID!
+    clientMutationId: String
+}
+
+input DeleteScheduleFileInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteScheduleFilePayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteTagInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteTagPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input DeleteTaskExecutionInput {
+    ids: [ID!]!
+    clientMutationId: String
+}
+
+type DeleteTaskExecutionPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+type Delta {
+    difference: ValueDataInterface!
+    percentageDifference: Float
+    result: DeltaResult!
+    interpretation: DeltaInterpretation!
+}
+
+enum DeltaInterpretation {
+    IsBetter
+    IsWorse
+    IsSame
+}
+
+enum DeltaInterpretationRuleEnum {
+    HigherIsBetter
+    Neutral
+    LowerIsBetter
+}
+
+type DeltaLogic implements CalculationLogic {
+    configuration: DeltaLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type DeltaLogicConfiguration implements CalculationLogicConfiguration {
+    minuendFieldKey: String!
+    subtrahendFieldKey: String!
+    fieldName: String
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input DeltaLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    minuendFieldKey: String!
+    subtrahendFieldKey: String!
+    fieldName: String
+}
+
+enum DeltaResult {
+    IsHigher
+    IsLower
+    IsSame
+}
+
+type DirectoryQueries {
+    DirectoryUsers(before: String, after: String, first: Int, last: Int, filterByName: String, filterByDashboardIds: [ID!], alwaysIncludeIds: [ID!], excludeIds: [ID!]): DirectoryUserConnection!
+}
+
+type DirectoryUser {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    jobTitle: String!
+    baseDataPoint: ImportedDataPoint!
+}
+
+"A connection to a list of items."
+type DirectoryUserConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [DirectoryUserEdge]
+}
+
+"An edge in a connection."
+type DirectoryUserEdge {
+    "The item at the end of the edge."
+    node: DirectoryUser!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type DirectoryUserRecipient implements Recipient {
+    directoryUser: ImportedDataPoint
+    recipientType: RecipientType!
+}
+
+input DirectoryUserRecipientInput {
+    token: String!
+    recipientType: RecipientType!
+    directoryUserRef: ID!
+}
+
+input DisconnectWiringInput {
+    calculationGraphId: ID!
+    wiringDefinitionId: ID!
+    clientMutationId: String
+}
+
+type DisconnectWiringPayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+interface DisplayOptions {
+    kind: DisplayOptionsKindEnum!
+}
+
+enum DisplayOptionsKindEnum {
+    noSpecialOptions
+    showChanged
+    showDelta
+    showOutcome
+}
+
+enum DisplayTypeEnum {
+    Default
+    Gauge
+    Thermometer
+    Scale
+    RangeName
+}
+
+input DistributeImmediatelyInput {
+    dashboardDistributionId: ID!
+    clientMutationId: String
+}
+
+type DistributeImmediatelyPayload {
+    edge: DashboardDistributionEdge!
+    clientMutationId: String
+}
+
+input DistributionDataInput {
+    name: String!
+    schedule: ScheduleInput!
+    recipients: [RecipientInput!]!
+}
+
+type DistributionMutations {
+    createDashboardDistribution(input: CreateDashboardDistributionInput!): CreateDashboardDistributionPayload
+    editDashboardDistribution(input: EditDashboardDistributionInput!): EditDashboardDistributionPayload
+    deleteDashboardDistribution(input: DeleteDashboardDistributionInput!): DeleteDashboardDistributionPayload
+    distributeImmediately(input: DistributeImmediatelyInput!): DistributeImmediatelyPayload
+}
+
+type DistributionQueries {
+    DashboardDistributions(before: String, after: String, first: Int, last: Int, filterByDashboardId: ID!): DashboardDistributionConnection!
+    DashboardByToken(token: String!): Dashboard!
+}
+
+type DoConvert implements ConversionOperation {
+    toKind: ValueTypeEnum!
+    kind: ConversionOperationKindEnum!
+}
+
+input DoConvertInput {
+    toKind: ValueTypeEnum!
+}
+
+type DoRound implements RoundingOperation {
+    decimalPlaces: Int!
+    kind: RoundingOperationKindEnum!
+}
+
+input DoRoundInput {
+    decimalPlaces: Int!
+}
+
+type DontConvert implements ConversionOperation {
+    kind: ConversionOperationKindEnum!
+}
+
+input DontConvertInput {
+    dummy: String
+}
+
+type DontRound implements RoundingOperation {
+    kind: RoundingOperationKindEnum!
+}
+
+input DontRoundInput {
+    dummy: String
+}
+
+type DoubleValueData implements ValueDataInterface {
+    double: Float
+    kind: ValueTypeEnum!
+}
+
+input DoubleValueDataInput {
+    double: Float!
+}
+
+input DownloadSourceDataTableInput {
+    dashboardId: ID!
+    cellId: ID!
+    clientMutationId: String
+}
+
+type DownloadSourceDataTablePayload {
+    file: File!
+    clientMutationId: String
+}
+
+input DuplicateDashboardInput {
+    dashboardId: ID!
+    clientMutationId: String
+}
+
+type DuplicateDashboardPayload {
+    edge: DashboardEdge!
+    clientMutationId: String
+}
+
+input DuplicateGraphInput {
+    calculationGraphId: ID!
+    clientMutationId: String
+}
+
+type DuplicateGraphPayload {
+    edge: CalculationGraphEdge!
+    clientMutationId: String
+}
+
+input EditAccountAdminInput {
+    name: String!
+    id: ID!
+    clientMutationId: String
+}
+
+type EditAccountAdminPayload {
+    edge: AccountEdge!
+    clientMutationId: String
+}
+
+input EditCalculationGraphNameInput {
+    name: String!
+    calculationGraphId: ID!
+    clientMutationId: String
+}
+
+type EditCalculationGraphNamePayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+input EditCalculationGraphOwnerInput {
+    calculationGraphId: ID!
+    owner: GraphOwnerEnum!
+    clientMutationId: String
+}
+
+type EditCalculationGraphOwnerPayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+input EditCalculationGraphScopeInput {
+    calculationGraphId: ID!
+    scope: DataScopeTypeEnum!
+    clientMutationId: String
+}
+
+type EditCalculationGraphScopePayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+input EditCustomTypeDefinitionInput {
+    id: ID!
+    data: CustomTypeDefinitionInput!
+    clientMutationId: String
+}
+
+type EditCustomTypeDefinitionPayload {
+    customTypeDefinition: CustomTypeDefinition!
+    clientMutationId: String
+}
+
+input EditDashboardDistributionInput {
+    dashboardDistributionId: ID!
+    distributionData: DistributionDataInput!
+    clientMutationId: String
+}
+
+type EditDashboardDistributionPayload {
+    distribution: DashboardDistribution!
+    clientMutationId: String
+}
+
+input EditGroupInput {
+    name: String!
+    permissions: [String!]!
+    id: ID!
+    clientMutationId: String
+}
+
+type EditGroupPayload {
+    edge: UserInAccountGroupsEdge!
+    clientMutationId: String
+}
+
+input EditImportDefinitionInput {
+    importDefinitionId: ID!
+    importDefinitionData: ImportDefinitionDataInput!
+    clientMutationId: String
+}
+
+type EditImportDefinitionPayload {
+    importDefinition: ImportDefinition!
+    clientMutationId: String
+}
+
+input EditProjectInput {
+    id: ID!
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type EditProjectPayload {
+    edge: ProjectEdge!
+    clientMutationId: String
+}
+
+input EditProjectRegionInput {
+    id: ID!
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type EditProjectRegionPayload {
+    edge: ImportedDataPointEdge!
+    clientMutationId: String
+}
+
+input EditProjectStageInput {
+    id: ID!
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type EditProjectStagePayload {
+    edge: ImportedDataPointEdge!
+    clientMutationId: String
+}
+
+input EditProjectTypeInput {
+    id: ID!
+    fields: [FieldInput!]!
+    clientMutationId: String
+}
+
+type EditProjectTypePayload {
+    edge: ImportedDataPointEdge!
+    clientMutationId: String
+}
+
+input EditTagInput {
+    id: ID!
+    data: TagDataInput!
+    clientMutationId: String
+}
+
+type EditTagPayload {
+    edge: TagEdge!
+    clientMutationId: String
+}
+
+input EditUserInput {
+    name: String!
+    email: String!
+    activated: Boolean!
+    userId: ID!
+    clientMutationId: String
+}
+
+type EditUserPayload {
+    user: User!
+    clientMutationId: String
+}
+
+"Data only accessible by the admin"
+type EmailAdminMutationSchema {
+    createPersonalizedEmailTemplate(input: CreatePersonalizedEmailTemplateInput!): CreatePersonalizedEmailTemplatePayload
+    deletePersonalizedEmailTemplate(input: DeletePersonalizedEmailTemplateInput!): DeletePersonalizedEmailTemplatePayload
+    updatePersonalizedEmailTemplate(input: UpdatePersonalizedEmailTemplateInput!): UpdatePersonalizedEmailTemplatePayload
+}
+
+"Data only accessible by the admin"
+type EmailAdminSchema {
+    AvailableSystemTemplates(before: String, after: String, first: Int, last: Int): [EmailTemplate!]!
+    PersonalizedEmailTemplates(before: String, after: String, first: Int, last: Int): PersonalizedEmailTemplatesConnection!
+}
+
+type EmailRecipient implements Recipient {
+    email: String!
+    recipientType: RecipientType!
+}
+
+type EmailTemplate {
+    key: String!
+    subject: String!
+    previewText: String!
+    body: String!
+    variables: [String!]!
+}
+
+enum EmissionTypeEnum {
+    DoEmit
+    DontEmit
+}
+
+interface Emits {
+    kind: PortPayloadKind!
+}
+
+type EmitsData implements Emits {
+    kind: PortPayloadKind!
+}
+
+type EmitsValue implements Emits {
+    kind: PortPayloadKind!
+}
+
+type EmitterLogic implements CalculationLogic {
+    configuration: EmitterLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type EmitterLogicConfiguration implements CalculationLogicConfiguration {
+    emissionType: EmissionTypeEnum!
+    visibilityType: VisibilityTypeEnum!
+    deltaInterpretationRule: DeltaInterpretationRuleEnum!
+    automaticCalculationSetting: AutomaticCalculationSetting!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input EmitterLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    emissionType: EmissionTypeEnum!
+    visibilityType: VisibilityTypeEnum!
+    deltaInterpretationRule: DeltaInterpretationRuleEnum!
+    automaticCalculationSetting: AutomaticCalculationSetting!
+}
+
+type EmptyUserExtension implements UserExtension {
+    kind: UserExtensionKind!
+}
+
+type EntityLinkValueData implements ValueDataInterface {
+    string: String!
+    targetId: ID
+    targetType: String
+    kind: ValueTypeEnum!
+}
+
+input EntityLinkValueDataInput {
+    string: String!
+    targetId: ID
+    targetType: ID
+}
+
+type EnumerationFieldType implements FieldType {
+    choices: [ValueDataInterface!]!
+    kind: FieldTypeKind!
+    valueKind: ValueType!
+}
+
+input EnumerationFieldTypeInput {
+    valueKind: ValueTypeEnum!
+    choices: [ValueDataInput!]!
+}
+
+input ErrorPayloadInput {
+    reason: ErrorReason!
+    explanation: String
+}
+
+enum ErrorReason {
+    UnknownError
+    ConversionError
+    RoundingError
+    NoInput
+    UnsupportedOperation
+    UnknownCalculation
+    CalculationEngineError
+    CalculationIsNotProperlyConnected
+    NoData
+    WidgetRenderingTimeout
+    WidgetRenderingStrategyNotFound
+}
+
+type ErrorValueData implements ValueDataInterface {
+    reason: ErrorReason!
+    explanation: String
+    kind: ValueTypeEnum!
+}
+
+input ErrorValueDataInput {
+    error: ErrorPayloadInput!
+}
+
+enum EveryType {
+    Week
+    Month
+}
+
+input ExchangeAgaveLinkTokenInput {
+    publicToken: String!
+    clientMutationId: String
+}
+
+type ExchangeAgaveLinkTokenPayload {
+    clientMutationId: String
+}
+
+type ExecutionLogMessage {
+    timestamp: ZonedDateTime!
+    message: String!
+}
+
+type ExternalLinkValueData implements ValueDataInterface {
+    string: String!
+    link: String
+    kind: ValueTypeEnum!
+}
+
+input ExternalLinkValueDataInput {
+    string: String!
+    link: String
+}
+
+type ExternalapiMutations {
+    setAccountDomains(input: SetAccountDomainsInput!): SetAccountDomainsPayload
+    loginWithAutodesk(input: LoginWithAutodeskInput!): LoginWithAutodeskPayload
+}
+
+input FavoriteProjectInput {
+    projectId: ID!
+    clientMutationId: String
+}
+
+type FavoriteProjectPayload {
+    edge: ProjectEdge!
+    clientMutationId: String
+}
+
+type Feedback implements Node {
+    "The ID of an object"
+    id: ID!
+    body: String!
+    screen: String
+    project: Project
+    user: User
+    createdAt: ZonedDateTime!
+}
+
+"Data only accessible by the admin"
+type FeedbackAdminSchema {
+    Feedbacks(before: String, after: String, first: Int, last: Int): FeedbackConnection!
+}
+
+"A connection to a list of items."
+type FeedbackConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [FeedbackEdge]
+}
+
+"An edge in a connection."
+type FeedbackEdge {
+    "The item at the end of the edge."
+    node: Feedback!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type FeedbackMutations {
+    leaveFeedback(input: LeaveFeedbackInput!): LeaveFeedbackPayload
+}
+
+type Field {
+    key: String!
+    data: ValueDataInterface
+}
+
+type FieldColumnDefinition implements TableColumnDefinition {
+    fieldKey: String!
+    name: String!
+    kind: TableColumnDefinitionKind!
+}
+
+input FieldColumnDefinitionInput {
+    name: String!
+    fieldKey: String!
+}
+
+type FieldDefinition {
+    key: String!
+    name: String!
+    isTitleField: Boolean!
+    tooltip: String
+    fieldType: FieldType!
+}
+
+input FieldDefinitionInput {
+    name: String!
+    fieldType: FieldTypeInput!
+    key: String!
+    tooltip: String
+    isTitleField: Boolean!
+}
+
+type FieldExtractorLogic implements CalculationLogic {
+    configuration: FieldExtractorLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type FieldExtractorLogicConfiguration implements CalculationLogicConfiguration {
+    fieldKey: String!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input FieldExtractorLogicConfigurationInput {
+    description: CalculationDescriptionInput!
+    fieldKey: String!
+}
+
+type FieldFilter implements DataPointFilter {
+    fieldKey: String!
+    operator: ValueOperatorEnum!
+    operand: OperandInterface!
+    kind: FilterKind!
+}
+
+input FieldFilterInput {
+    fieldKey: String!
+    operator: ValueOperatorEnum!
+    operand: OperandInput!
+}
+
+input FieldInput {
+    key: String!
+    data: ValueDataInput
+}
+
+type FieldOperand implements OperandInterface {
+    fieldKey: String!
+    kind: OperandKindEnum!
+}
+
+input FieldOperandInput {
+    fieldKey: String!
+}
+
+interface FieldType {
+    kind: FieldTypeKind!
+    valueKind: ValueType!
+}
+
+input FieldTypeInput {
+    basic: BasicFieldTypeInput
+    enumeration: EnumerationFieldTypeInput
+    reference: ReferenceFieldTypeInput
+}
+
+enum FieldTypeKind {
+    basic
+    oneDimensional
+    nDimensional
+    enumeration
+    reference
+}
+
+type File implements Node {
+    name: String!
+    fileType: String!
+    fileSize: Long!
+    storageKey: String!
+    thumbnailKey: String
+    accessType: FileAccessType!
+    tags: [String!]!
+    uploadDateTime: ZonedDateTime!
+
+    "The ID of an object"
+    id: ID!
+    thumbnail: String
+    url: String
+}
+
+enum FileAccessType {
+    public
+    signedUrl
+}
+
+type FileWidgetDefinition implements WidgetDefinition {
+    file: File
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input FileWidgetDefinitionInput {
+    title: String
+    fileRef: ID
+}
+
+type FileWidgetPayload implements WidgetPayload {
+    file: File
+    widgetDefinition: WidgetDefinition!
+    renderedSteps: [RenderedStep!]!
+}
+
+"Data only accessible by the admin"
+type FilesAdminMutationSchema {
+    deleteFile(input: DeleteFileInput!): DeleteFilePayload
+}
+
+"Data only accessible by the admin"
+type FilesAdminSchema {
+    Files(before: String, after: String, first: Int, last: Int, name: String, fileType: [String!], fromDateTimeInclusive: ZonedDateTime, toDateTimeInclusive: ZonedDateTime, tagsIncluded: [String!], tagsExcluded: [String!]): FilesConnection!
+    TaskExecutions(before: String, after: String, first: Int, last: Int, status: TaskExecutionStatusInput, createdAtAfter: ZonedDateTime, createdAtBefore: ZonedDateTime): TaskExecutionsConnection!
+}
+
+"A connection to a list of items."
+type FilesConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [FilesEdge]
+}
+
+"An edge in a connection."
+type FilesEdge {
+    "The item at the end of the edge."
+    node: File!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+enum FilterKind {
+    and
+    or
+    field
+    isFavorite
+}
+
+type FilterLogic implements CalculationLogic {
+    configuration: FilterLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type FilterLogicConfiguration implements CalculationLogicConfiguration {
+    filters: [DataPointFilter!]!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input FilterLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    filters: [DataPointFilterInput!]!
+}
+
+type FirstEncountered implements DeduplicationRule {
+    kind: DeduplicationRuleKindEnum!
+}
+
+input FirstEncounteredInput {
+    kind: DeduplicationRuleKindEnum!
+}
+
+interface FixedOutput {
+    kind: FixedOutputKind!
+}
+
+input FixedOutputInput {
+    value: ValueOutputInput
+    parameter: ParameterOutputInput
+}
+
+enum FixedOutputKind {
+    value
+    parameter
+}
+
+type FixedValueLogic implements CalculationLogic {
+    configuration: FixedValueLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type FixedValueLogicConfiguration implements CalculationLogicConfiguration {
+    output: FixedOutput!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input FixedValueLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    output: FixedOutputInput!
+}
+
+"The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_754)."
+scalar Float
+
+input GetPreviewInput {
+    fileDescriptionId: ID!
+    interpretationKind: InterpretationKindEnum!
+    clientMutationId: String
+}
+
+type GetPreviewPayload {
+    table: TableModelOutput!
+    clientMutationId: String
+}
+
+type GlobalScope implements DataScope {
+    kind: DataScopeTypeEnum!
+}
+
+input GlobalScopeInput {
+    kind: DataScopeTypeEnum
+}
+
+type GpsValue implements ValueDataInterface {
+    latitude: Float!
+    longitude: Float!
+    kind: ValueTypeEnum!
+}
+
+input GpsValueInput {
+    latitude: Float!
+    longitude: Float!
+}
+
+type GradeAndPercentage {
+    grade: RangeGrade!
+    percentage: Float!
+}
+
+enum GraphOwnerEnum {
+    Account
+    System
+}
+
+type GraphPreview {
+    portVisualizations: [PortVisualization!]!
+}
+
+type GroupByLogic implements CalculationLogic {
+    configuration: GroupByLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type GroupByLogicConfiguration implements CalculationLogicConfiguration {
+    groupByField: String!
+    aggregateField: String!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input GroupByLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    groupByField: String!
+    aggregateField: String!
+}
+
+type HierarchySettings {
+    order: Int!
+    subTagIds: [ID!]!
+    subTags: [Tag!]!
+    isRoot: Boolean!
+}
+
+input HierarchySettingsInput {
+    subTagIds: [ID!]!
+    isRoot: Boolean!
+    order: Int!
+}
+
+type HistogramAtDataDate {
+    histogram: HistogramValueData!
+    dataDate: LocalDate!
+    percentComplete: Float!
+}
+
+type HistogramValueData implements ValueDataInterface {
+    groupType: ValueTypeEnum!
+    groups: [Float!]!
+    groupLabels: [String!]!
+    kind: ValueTypeEnum!
+}
+
+input HistogramValueDataInput {
+    groups: [Float!]!
+    groupLabels: [String!]!
+    groupType: ValueTypeEnum!
+}
+
+type HistogramWidgetDefinition implements SingleInputWidgetDefinition & WidgetDefinition {
+    input: HistogramWidgetInput
+    horizontal: Boolean!
+    values: HistogramWidgetInput
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input HistogramWidgetDefinitionInput {
+    input: HistogramWidgetInputInput
+    title: String
+    horizontal: Boolean!
+}
+
+type HistogramWidgetInput implements ScopedWidgetInput & WidgetInput {
+    scope: DataScope!
+    portSelection: PortSelection!
+    kind: String!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+}
+
+input HistogramWidgetInputInput {
+    portSelection: PortSelectionInput!
+    conversion: ConversionOperationInput!
+    rounding: RoundingOperationInput!
+    scope: DataScopeInput!
+}
+
+type HistogramWidgetPayload implements WidgetPayload {
+    widgetDefinition: HistogramWidgetDefinition!
+    datasets: [HistogramAtDataDate!]!
+    renderedSteps: [RenderedStep!]!
+}
+
+type I18nMutations {
+    createTag(input: CreateTagInput!): CreateTagPayload
+    editTag(input: EditTagInput!): EditTagPayload
+}
+
+type I18nQueries {
+    Tags(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!]): TagConnection!
+}
+
+"The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `\"4\"`) or integer (such as `4`) input value will be accepted as an ID."
+scalar ID
+
+type IdentifierValueData implements ValueDataInterface {
+    dataPointId: String!
+    kind: ValueTypeEnum!
+}
+
+input IdentifierValueInput {
+    dataPointId: ID!
+}
+
+type ImportDefinition implements Node {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    importMode: ImportModeEnum!
+    interpretation: Interpretation!
+}
+
+"A connection to a list of items."
+type ImportDefinitionConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [ImportDefinitionEdge]
+}
+
+input ImportDefinitionDataInput {
+    name: String!
+    importMode: ImportModeEnum!
+    interpretation: InterpretationInput!
+}
+
+"An edge in a connection."
+type ImportDefinitionEdge {
+    "The item at the end of the edge."
+    node: ImportDefinition!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type ImportFile {
+    "The ID of an object"
+    id: ID!
+    fileName: String!
+    dataDate: LocalDate!
+    file: File
+    uploadedAt: ZonedDateTime!
+}
+
+"A connection to a list of items."
+type ImportFileConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [ImportFileEdge]
+}
+
+"An edge in a connection."
+type ImportFileEdge {
+    "The item at the end of the edge."
+    node: ImportFile!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+enum ImportModeEnum {
+    Snapshots
+    LatestOnly
+}
+
+type ImportedDataPoint implements Node {
+    "The ID of an object"
+    id: ID!
+    typeDefinition: TypeDefinition
+    title: String!
+    integrationKinds: [Integration!]!
+    fields(keys: [String!]): [Field!]!
+}
+
+"A connection to a list of items."
+type ImportedDataPointConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [ImportedDataPointEdge]
+}
+
+"An edge in a connection."
+type ImportedDataPointEdge {
+    "The item at the end of the edge."
+    node: ImportedDataPoint!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type ImportedFromLibrary implements CreationTag {
+    "The ID of an object"
+    id: ID!
+    kind: CreationTagKindEnum!
+    createdAt: ZonedDateTime!
+}
+
+type ImporterMutations {
+    importProjectData(input: ProjectImportInput!): ProjectImportPayload
+    stopImportProjectData(input: StopProjectImportInput!): StopProjectImportPayload
+}
+
+type InputPort {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    payload: PortPayload!
+    accepts: Accepts!
+}
+
+type InputTree {
+    roots: [ID!]!
+    nodes: [TreeNodeInterface!]!
+}
+
+"The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1."
+scalar Int
+
+type IntegerValueData implements ValueDataInterface {
+    integer: Int!
+    kind: ValueTypeEnum!
+}
+
+input IntegerValueDataInput {
+    integer: Int!
+}
+
+enum Integration {
+    custom
+    Procore
+    autodesk
+    Agave
+    schedulefiles
+    customimportfiles
+}
+
+type IntegrationSettings {
+    "The ID of an object"
+    id: ID!
+    integration: Integration!
+    scope: DataScopeTypeEnum!
+    data: IntegrationSettingsDataInterface!
+}
+
+"A connection to a list of items."
+type IntegrationSettingsConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [IntegrationSettingsEdge]
+}
+
+interface IntegrationSettingsDataInterface {
+    integration: Integration!
+}
+
+"An edge in a connection."
+type IntegrationSettingsEdge {
+    "The item at the end of the edge."
+    node: IntegrationSettings!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type IntegrationStatus {
+    id: ID!
+    activeIntegrations: [Integration!]!
+}
+
+type IntegrationsMutations {
+    startPortfolioImport(input: StartPortfolioImportInput!): StartPortfolioImportPayload
+}
+
+"Data partaining to the current user"
+type IntegrationsViewerSchema {
+    integrationStatus: IntegrationStatus!
+}
+
+type IntermediateTypeReference implements TypeReference {
+    kind: String!
+    type: TypeDefinition
+}
+
+interface Interpretation {
+    kind: InterpretationKindEnum!
+    targetType: ID!
+}
+
+input InterpretationInput {
+    xslx: XSLXInterpretationInput
+}
+
+enum InterpretationKindEnum {
+    xslx
+}
+
+type Invitation {
+    "The ID of an object"
+    id: ID!
+    email: String!
+    addToGroups: [UserInAccountGroup!]!
+    validUntil: ZonedDateTime
+    invitingUser: User
+    invitingUserName: String
+    accountName: String
+}
+
+"A connection to a list of items."
+type InvitationConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [InvitationEdge]
+}
+
+"An edge in a connection."
+type InvitationEdge {
+    "The item at the end of the edge."
+    node: Invitation!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+input InviteUserToAccountInput {
+    email: String!
+    groupId: ID
+    clientMutationId: String
+}
+
+type InviteUserToAccountPayload {
+    edge: InvitationEdge!
+    clientMutationId: String
+}
+
+type IsFavoriteFilter implements DataPointFilter {
+    kind: FilterKind!
+}
+
+input IsFavoriteFilterInput {
+    dummy: String
+}
+
+type JoinLogic implements CalculationLogic {
+    configuration: JoinLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type JoinLogicConfiguration implements CalculationLogicConfiguration {
+    sourceJoinField: String!
+    targetJoinField: String!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input JoinLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    sourceJoinField: String!
+    targetJoinField: String!
+}
+
+enum JwtDeviceKindKind {
+    Webapp
+}
+
+type JwtLoginInformation {
+    accessToken: String!
+    refreshToken: String!
+}
+
+type KnownTypeReference implements TypeReference {
+    kind: String!
+    type: TypeDefinition
+}
+
+input KnownTypeReferenceInput {
+    typeDefinitionId: ID!
+}
+
+input LayoutWithCellIdInput {
+    id: ID!
+    layout: CellLayoutInput!
+}
+
+input LeaveFeedbackInput {
+    screen: String
+    body: String!
+    projectRef: ID
+    clientMutationId: String
+}
+
+type LeaveFeedbackPayload {
+    clientMutationId: String
+}
+
+input LinkAccountWithProcoreInput {
+    code: String!
+    redirectUri: String!
+    clientMutationId: String
+}
+
+type LinkAccountWithProcorePayload {
+    clientMutationId: String
+}
+
+scalar LocalDate
+
+input LoginAsUserJwtInput {
+    userId: ID!
+    deviceKind: JwtDeviceKindKind!
+    clientMutationId: String
+}
+
+type LoginAsUserJwtPayload {
+    jwtTokens: JwtLoginInformation!
+    clientMutationId: String
+}
+
+input LoginJwtInput {
+    email: String!
+    password: String!
+    deviceKind: JwtDeviceKindKind!
+    clientMutationId: String
+}
+
+type LoginJwtPayload {
+    jwtTokens: JwtLoginInformation!
+    clientMutationId: String
+}
+
+input LoginWithAutodeskInput {
+    code: String!
+    redirectUri: String!
+    clientMutationId: String
+}
+
+type LoginWithAutodeskPayload {
+    jwtTokens: JwtLoginInformation!
+    clientMutationId: String
+}
+
+input LoginWithProcoreInput {
+    code: String!
+    redirectUri: String!
+    clientMutationId: String
+}
+
+type LoginWithProcorePayload {
+    jwtTokens: JwtLoginInformation!
+    clientMutationId: String
+}
+
+"The `Long` scalar type represents non-fractional signed whole numeric values. Long can represent values between -(2^63) and 2^63 - 1."
+scalar Long
+
+"Data only accessible by the admin"
+type ManagementAdminMutationSchema {
+    createAccountAdmin(input: CreateAccountAdminInput!): CreateAccountAdminPayload
+    createUserInAccountAdmin(input: CreateUserInAccountAdminInput!): CreateUserInAccountAdminPayload
+    anonymizeAccountAdmin(input: AnonymizeAccountAdminInput!): AnonymizeAccountAdminPayload
+    editAccountAdmin(input: EditAccountAdminInput!): EditAccountAdminPayload
+    changeUserGroupsAdmin(input: ChangeUserGroupsAdminInput!): ChangeUserGroupsAdminPayload
+    removeUserFromAccountAdmin(input: RemoveUserFromAccountAdminInput!): RemoveUserFromAccountAdminPayload
+    changeAccountGroups(input: ChangeAccountGroupsInput!): ChangeAccountGroupsPayload
+}
+
+"Data only accessible by the admin"
+type ManagementAdminSchema {
+    UsersAdmin(before: String, after: String, first: Int, last: Int, filterByName: String, excludeIds: [ID!], alwaysIncludeIds: [ID!]): UserConnection!
+    AccountsAdmin(before: String, after: String, first: Int, last: Int): AccountConnection!
+    UsersInAccountAdmin(before: String, after: String, first: Int, last: Int, accountId: ID!): UserInAccountConnection!
+    GroupsOfAccount(before: String, after: String, first: Int, last: Int, accountId: ID!): UserInAccountGroupsConnection!
+}
+
+type ManagementMutations {
+    changeUserInAccountGroups(input: ChangeUserInAccountGroupsInput!): ChangeUserInAccountGroupsPayload
+    inviteUserToAccount(input: InviteUserToAccountInput!): InviteUserToAccountPayload
+    deleteInvitation(input: DeleteInvitationInput!): DeleteInvitationPayload
+    removeUserFromAccount(input: RemoveUserFromAccountInput!): RemoveUserFromAccountPayload
+    acceptInvitation(input: AcceptInviteInput!): AcceptInvitePayload
+    acceptInvitationWithNewUser(input: AcceptInviteWithNewUserInput!): AcceptInviteWithNewUserPayload
+    createGroup(input: CreateGroupInput!): CreateGroupPayload
+    editGroup(input: EditGroupInput!): EditGroupPayload
+    deleteGroup(input: DeleteGroupInput!): DeleteGroupPayload
+}
+
+type ManagementQueries {
+    Groups(before: String, after: String, first: Int, last: Int): UserInAccountGroupsConnection!
+    InvitationsToAccount(before: String, after: String, first: Int, last: Int): InvitationConnection!
+    UsersInAccount(before: String, after: String, first: Int, last: Int): UserInAccountConnection!
+    AccountGroups(before: String, after: String, first: Int, last: Int): AccountGroupsConnection!
+    AvailablePermissions: [Permission!]!
+}
+
+type MapWidgetDefinition implements WidgetDefinition {
+    projectIds: [ID!]!
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input MapWidgetDefinitionInput {
+    title: String
+    projectIds: [ID!]!
+}
+
+type MapWidgetPayload implements WidgetPayload {
+    projects: [Project!]!
+    widgetDefinition: WidgetDefinition!
+    renderedSteps: [RenderedStep!]!
+}
+
+enum MessageType {
+    Info
+    Warning
+    Error
+}
+
+type ModelQueries {
+    Projects(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!], filterByStartDateFrom: LocalDate, filterByStartDateTo: LocalDate, filterByClientName: String, filterByRegion: [ID!], filterByStage: [ID!], filterByType: [ID!], limitToFavorites: Boolean): ProjectConnection!
+    DataPoints(before: String, after: String, first: Int, last: Int, typeDefinitionId: String!, alwaysIncludeIds: [ID!], filters: [DataPointFilterInput!]): ImportedDataPointConnection!
+}
+
+type ModelSort {
+    columnKey: String!
+    order: ModelSortOrder!
+}
+
+input ModelSortInput {
+    columnKey: String!
+    order: ModelSortOrder!
+}
+
+enum ModelSortOrder {
+    Ascending
+    Descending
+}
+
+interface MultiInputWidgetDefinition implements WidgetDefinition {
+    inputs: [WidgetInput!]!
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+type MultiValuePageDefinition {
+    inputs: [MultiValueWidgetInput!]!
+    name: String!
+}
+
+input MultiValuePageDefinitionInput {
+    name: String!
+    inputs: [MultiValueWidgetInputInput!]!
+}
+
+interface MultiValueWidgetComponentInterface {
+    kind: ComponentKindEnum!
+}
+
+type MultiValueWidgetDefinition implements MultiInputWidgetDefinition & WidgetDefinition {
+    pages: [MultiValuePageDefinition!]!
+    mainValue: MultiValueWidgetInput
+    inputs: [MultiValueWidgetInput!]!
+    title: String
+    kind: WidgetType!
+    linkedTagIds: [ID!]!
+    widgetDefinitionString: String!
+}
+
+input MultiValueWidgetDefinitionInput {
+    title: String
+    pages: [MultiValuePageDefinitionInput!]!
+    mainValue: MultiValueWidgetInputInput
+    linkedTagIds: [ID!]!
+}
+
+type MultiValueWidgetDetailComponent {
+    renderedWidget: Widget!
+}
+
+type MultiValueWidgetInput implements ScopedWidgetInput & WidgetInput {
+    columnSpan: Int!
+    displayType: DisplayTypeEnum!
+    componentKind: ComponentKindEnum!
+    scope: DataScope!
+    portSelection: PortSelection!
+    kind: String!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+}
+
+input MultiValueWidgetInputInput {
+    portSelection: PortSelectionInput!
+    scope: DataScopeInput!
+    componentKind: ComponentKindEnum!
+    displayType: DisplayTypeEnum!
+    columnSpan: Int!
+    conversion: ConversionOperationInput!
+    rounding: RoundingOperationInput!
+}
+
+type MultiValueWidgetPage {
+    name: String!
+    components: [MultiValueWidgetComponentInterface!]!
+}
+
+type MultiValueWidgetPayload implements WidgetPayload {
+    widgetDefinition: MultiValueWidgetDefinition!
+    pages: [MultiValueWidgetPage!]!
+    mainValue: MultiValueWidgetComponentInterface
+    renderedSteps: [RenderedStep!]!
+}
+
+type MultipleProjectsParameter implements SourceResolution {
+    projectIdsParameter: String!
+    kind: SourceResolutionKindEnum!
+}
+
+input MultipleProjectsParameterInput {
+    projectIdsParameter: String!
+}
+
+type Mutation {
+    I18n: I18nMutations!
+    Calculations: CalculationsMutations!
+    Auth: AuthMutations!
+    Schedules: SchedulesMutations!
+    Integrations: IntegrationsMutations!
+    Procore: ProcoreMutations!
+    Management: ManagementMutations!
+    DashboardLibrary: DashboardLibraryMutations!
+    Agave: AgaveMutations!
+    Settings: SettingsMutations!
+    CustomImports: CustomImportsMutations!
+    Project: ProjectMutations!
+    Tag: TagMutations!
+    Distribution: DistributionMutations!
+    Importer: ImporterMutations!
+    Dashboard: DashboardMutations!
+    Data: DataMutations!
+    Externalapi: ExternalapiMutations!
+    Feedback: FeedbackMutations!
+    Batch: BatchMutations!
+
+    "Data only accessible by the admin"
+    Admin: AdminMutationType!
+}
+
+type NecessaryReplacements {
+    projectIds: [ID!]!
+}
+
+type NoSchedule implements ScheduleInterface {
+    kind: ScheduleKind!
+}
+
+input NoScheduleInput {
+    kind: String!
+}
+
+type NoSpecialOptions implements DisplayOptions {
+    kind: DisplayOptionsKindEnum!
+}
+
+"An object with an ID"
+interface Node {
+    "The id of the object."
+    id: ID!
+}
+
+type NullPoint implements XyDataPointInterface {
+    kind: XyDataPointTypeEnum!
+    xAxisCoordinates: XAxisCoordinates!
+    yAxisCoordinates: YAxisCoordinates!
+}
+
+type NullValueData implements ValueDataInterface {
+    null: Boolean!
+    kind: ValueTypeEnum!
+}
+
+input NullValueDataInput {
+    null: Boolean!
+}
+
+input OperandInput {
+    parameter: ParameterOperandInput
+    value: ValueOperandInput
+    field: FieldOperandInput
+    preResolved: PreResolvedValueOperandInput
+}
+
+interface OperandInterface {
+    kind: OperandKindEnum!
+}
+
+enum OperandKindEnum {
+    parameter
+    value
+    field
+    preResolved
+}
+
+type OrFilter implements DataPointFilter {
+    subFilters: [FieldFilter!]!
+    kind: FilterKind!
+}
+
+input OrFilterInput {
+    subFilters: [FieldFilterInput!]!
+}
+
+type OutputPort {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    payload: PortPayload!
+    emits: Emits!
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+    "When paginating forwards, are there more items?"
+    hasNextPage: Boolean!
+
+    "When paginating backwards, are there more items?"
+    hasPreviousPage: Boolean!
+
+    "When paginating backwards, the cursor to continue."
+    startCursor: String
+
+    "When paginating forwards, the cursor to continue."
+    endCursor: String
+}
+
+type ParameterKey {
+    key: String!
+    valueKind: ValueTypeEnum!
+}
+
+type ParameterOperand implements OperandInterface {
+    parameterKey: String!
+    kind: OperandKindEnum!
+}
+
+input ParameterOperandInput {
+    parameterKey: String!
+}
+
+type ParameterOutput implements FixedOutput {
+    parameterKey: String!
+    kind: FixedOutputKind!
+}
+
+input ParameterOutputInput {
+    parameterKey: String!
+}
+
+type ParameterSet {
+    index: Int!
+    percentComplete: Float!
+    analysisIntervalEnd: LocalDate!
+}
+
+input PasteCalculationGraphFromClipboardInput {
+    string: String!
+    clientMutationId: String
+}
+
+type PasteCalculationGraphFromClipboardPayload {
+    edge: CalculationGraphEdge!
+    clientMutationId: String
+}
+
+input PasteInput {
+    sourceGraphId: ID!
+    selectedCalculationIds: [ID!]!
+}
+
+input PasteIntoGraphInput {
+    targetGraph: ID!
+    paste: PasteInput!
+    clientMutationId: String
+}
+
+type PasteIntoGraphPayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+type PercentageAxis implements XAxis {
+    ticks: [PercentageAxisTick!]!
+    axisId: Int!
+    kind: XAxisType!
+    scopes: [DataScope!]!
+}
+
+type PercentageAxisTick implements XAxisTick {
+    percentComplete: Float!
+
+    "The ID of an object"
+    id: ID!
+    kind: XAxisType!
+}
+
+type PercentageValueData implements ValueDataInterface {
+    percentage: Float
+    kind: ValueTypeEnum!
+}
+
+input PercentageValueDataInput {
+    percentage: Float!
+}
+
+enum Permission {
+    UserInAccountPermission_Distributions_Distributions
+    UserInAccountPermission_Management_Management
+    UserInAccountPermission_Files_Delete
+    UserInAccountPermission_Tasks_Tasks
+    UserInAccountPermission_Batch_Batch
+    UserInAccountPermission_System_Owner
+    AccountPermission_Feature_BudgetEnabled
+    AccountPermission_Feature_ScheduleEnabled
+    AccountPermission_Feature_DashboardLibrary
+    AccountPermission_Feature_LimitedDashboardsSmall
+    AccountPermission_Feature_LimitedDashboardsLarge
+    AccountPermission_Feature_UnlimitedDashboards
+    AccountPermission_Feature_AutomaticAnalysis
+    AccountPermission_Feature_CustomDataTypes
+    AccountPermission_Feature_CustomImports
+    AccountPermission_Feature_DemoAccount
+    AccountPermission_Feature_CustomCalculations
+    AccountPermission_Feature_JFW
+    AccountPermission_System_Root
+}
+
+type PersonalizedEmailTemplate implements Node {
+    "The ID of an object"
+    id: ID!
+    template: EmailTemplate!
+}
+
+input PersonalizedEmailTemplateInput {
+    key: String!
+    subject: String!
+    previewText: String!
+    body: String!
+    variables: [String!]!
+}
+
+"A connection to a list of items."
+type PersonalizedEmailTemplatesConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [PersonalizedEmailTemplatesEdge]
+}
+
+"An edge in a connection."
+type PersonalizedEmailTemplatesEdge {
+    "The item at the end of the edge."
+    node: PersonalizedEmailTemplate!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type PieChartWidgetDefinition implements SingleInputWidgetDefinition & WidgetDefinition {
+    input: PieChartWidgetInput
+    donut: Boolean
+    values: PieChartWidgetInput
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input PieChartWidgetDefinitionInput {
+    input: PieChartWidgetInputInput
+    title: String
+    donut: Boolean
+}
+
+type PieChartWidgetInput implements ScopedWidgetInput & WidgetInput {
+    scope: DataScope!
+    portSelection: PortSelection!
+    kind: String!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+}
+
+input PieChartWidgetInputInput {
+    portSelection: PortSelectionInput!
+    scope: DataScopeInput!
+    conversion: ConversionOperationInput!
+    rounding: RoundingOperationInput!
+}
+
+type PieChartWidgetPayload implements WidgetPayload {
+    widgetDefinition: PieChartWidgetDefinition!
+    datasets: [HistogramAtDataDate!]!
+    renderedSteps: [RenderedStep!]!
+}
+
+type PingQueries {
+    "A simple endpoint to find out if the API is reachable"
+    ping: String!
+}
+
+interface PortPayload {
+    kind: PortPayloadKind!
+}
+
+enum PortPayloadKind {
+    data
+    value
+}
+
+type PortSelection {
+    calculationSelection: CalculationSelection!
+    outputPortId: ID!
+    name: String
+    sourceType: TypeReference
+    scope: DataScopeTypeEnum!
+}
+
+input PortSelectionInput {
+    calculationSelection: CalculationSelectionInput!
+    outputPortId: ID!
+}
+
+type PortSelectionNode implements TreeNodeInterface {
+    id: ID!
+    portSelection: PortSelection!
+    valueKind: ValueType!
+    conversionOptions: [ConversionOption!]!
+    scopeKind: DataScopeTypeEnum!
+    kind: TreeNodeKind!
+    name: String!
+    description: String
+}
+
+type PortVisualization {
+    portSelection: PortSelection!
+    widgets: [Widget!]!
+}
+
+type PortfolioStatisticsLogic implements CalculationLogic {
+    configuration: PortfolioStatisticsLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type PortfolioStatisticsLogicConfiguration implements CalculationLogicConfiguration {
+    resolution: SourceResolution!
+    analysisDate: LocalDate
+    portSelection: PortSelection
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input PortfolioStatisticsLogicConfigurationInput {
+    description: CalculationDescriptionInput!
+    resolution: SourceResolutionInput!
+    analysisDate: LocalDate
+    portSelection: PortSelectionInput
+}
+
+type PreResolvedValueOperand implements OperandInterface {
+    valueKey: String!
+    kind: OperandKindEnum!
+}
+
+input PreResolvedValueOperandInput {
+    valueKey: String!
+}
+
+input PreviewGraphInput {
+    calculationGraphId: ID!
+    projectId: ID
+    projectIds: [ID!]
+    clientMutationId: String
+}
+
+type PreviewGraphPayload {
+    graphPreview: GraphPreview!
+    clientMutationId: String
+}
+
+type PreviousClosestToParameterSnapshotDate implements StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    parameterKey: String!
+    lookBackDays: Int!
+    onlyBaseline: Boolean!
+}
+
+input PreviousClosestToParameterSnapshotDateInput {
+    parameterKey: String!
+    onlyBaseline: Boolean!
+    lookBackDays: Int!
+}
+
+type PreviousClosestToSpecificSnapshotDate implements StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    snapshotDate: LocalDate!
+    lookBackDays: Int!
+    onlyBaseline: Boolean!
+}
+
+input PreviousClosestToSpecificSnapshotDateInput {
+    snapshotDate: LocalDate!
+    onlyBaseline: Boolean!
+    lookBackDays: Int!
+}
+
+type ProcoreMutations {
+    loginWithProcore(input: LoginWithProcoreInput!): LoginWithProcorePayload
+    linkAccountWithProcore(input: LinkAccountWithProcoreInput!): LinkAccountWithProcorePayload
+}
+
+type ProcoreQueries {
+    ProjectByProcoreId(procoreId: String!): ImportedDataPoint
+}
+
+type Project implements Node {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    link: String
+    projectNumber: String
+    clientName: String
+    contractorName: String
+    coordinates: GpsValue
+    startDate: LocalDate
+    endDate: LocalDate
+    calculationStartDate: LocalDate
+    calculationEndDateField: LocalDate
+    estimatedValue: Float
+    importedAt: LocalDate
+    projectType: ProjectType
+    stage: ProjectStage
+    region: ProjectRegion
+    batchUpdate: BatchUpdate!
+    baseDataPoint: ImportedDataPoint!
+    isFavorite: Boolean!
+    importFiles(importDefinitionId: ID!): ImportFileConnection!
+    customImportDefinitions: ImportDefinitionConnection!
+    scheduleFiles: ScheduleFileConnection!
+    setupStatus: ProjectStatus!
+}
+
+"A connection to a list of items."
+type ProjectConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [ProjectEdge]
+}
+
+type ProjectDataWidgetDefinition implements WidgetDefinition {
+    projectId: ID
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input ProjectDataWidgetDefinitionInput {
+    title: String
+    projectId: ID
+}
+
+type ProjectDataWidgetPayload implements WidgetPayload {
+    project: Project
+    widgetDefinition: WidgetDefinition!
+    renderedSteps: [RenderedStep!]!
+}
+
+"An edge in a connection."
+type ProjectEdge {
+    "The item at the end of the edge."
+    node: Project!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+input ProjectImportInput {
+    skipCache: Boolean!
+    projectId: ID!
+    clientMutationId: String
+}
+
+type ProjectImportPayload {
+    batchUpdate: BatchUpdate
+    clientMutationId: String
+}
+
+type ProjectMutations {
+    createProject(input: CreateProjectInput!): CreateProjectPayload
+    deleteImportedDataPoint(input: DeleteImportedDataPointInput!): DeleteImportedDataPointPayload
+    editProject(input: EditProjectInput!): EditProjectPayload
+    favoriteProject(input: FavoriteProjectInput!): FavoriteProjectPayload
+    transferTestData(input: TransferTestDataInput!): TransferTestDataPayload
+    createProjectRegion(input: CreateProjectRegionInput!): CreateProjectRegionPayload
+    deleteProjectRegion(input: DeleteProjectRegionInput!): DeleteProjectRegionPayload
+    editProjectRegion(input: EditProjectRegionInput!): EditProjectRegionPayload
+    createProjectStage(input: CreateProjectStageInput!): CreateProjectStagePayload
+    deleteProjectStage(input: DeleteProjectStageInput!): DeleteProjectStagePayload
+    editProjectStage(input: EditProjectStageInput!): EditProjectStagePayload
+    createProjectType(input: CreateProjectTypeInput!): CreateProjectTypePayload
+    deleteProjectType(input: DeleteProjectTypeInput!): DeleteProjectTypePayload
+    editProjectType(input: EditProjectTypeInput!): EditProjectTypePayload
+}
+
+type ProjectQueries {
+    ProjectRegions(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!]): ImportedDataPointConnection!
+    ProjectStages(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!]): ImportedDataPointConnection!
+    ProjectTypes(before: String, after: String, first: Int, last: Int, filterByName: String, alwaysIncludeIds: [ID!]): ImportedDataPointConnection!
+    ProjectStatus(projectId: ID!): ProjectStatus!
+}
+
+type ProjectRegion {
+    "The ID of an object"
+    id: ID!
+    name: String!
+}
+
+type ProjectScope implements DataScope {
+    projectId: ID!
+    project: Project
+    kind: DataScopeTypeEnum!
+}
+
+input ProjectScopeInput {
+    projectId: ID!
+}
+
+input ProjectSelectionInput {
+    allProjects: AllProjectsSelectedInput
+    specificProject: SpecificProjectSelectedInput
+    specificProjects: SpecificProjectsSelectedInput
+}
+
+type ProjectStage {
+    "The ID of an object"
+    id: ID!
+    name: String!
+}
+
+type ProjectStatus {
+    importBatch: BatchUpdate!
+    pmSoftwareConnection: [Integration!]!
+    budgetStatus: BudgetStatus!
+    scheduleStatus: ScheduleStatus!
+    analysisStatus: AnalysisStatus!
+    constructionAdminStatus: ConstructionAdminStatus!
+}
+
+type ProjectType {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    baseDataPoint: ImportedDataPoint!
+}
+
+type ProjexionAccountExtensionAndAccountId implements AccountExtension {
+    emailDomains: [String!]!
+    kind: AccountExtensionKind!
+}
+
+input PublishCalculationGraphInput {
+    calculationGraphId: ID!
+    publishingParameters: PublishingParametersInput!
+    clientMutationId: String
+}
+
+type PublishCalculationGraphPayload {
+    publishedCalculationGraph: PublishedCalculationGraph!
+    clientMutationId: String
+}
+
+input PublishDashboardInput {
+    name: String!
+    shortDescription: String!
+    dashboardId: ID!
+    tagRefs: [ID!]!
+    clientMutationId: String
+}
+
+type PublishDashboardPayload {
+    edge: PublishedDashboardEdge!
+    clientMutationId: String
+}
+
+type PublishedCalculationGraph implements Node {
+    "The ID of an object"
+    id: ID!
+    configuration: PublishedCalculationGraphConfiguration!
+    scope: DataScopeTypeEnum!
+}
+
+type PublishedCalculationGraphConfiguration {
+    name: String!
+    shortDescription: String!
+    isSystem: Boolean!
+}
+
+type PublishedDashboard implements Node {
+    "The ID of an object"
+    id: ID!
+    configuration: PublishingConfiguration!
+    cells: [Cell!]!
+    createdFromDashboard: Dashboard
+    necessaryReplacements: NecessaryReplacements!
+}
+
+"A connection to a list of items."
+type PublishedDashboardConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [PublishedDashboardEdge]
+}
+
+"An edge in a connection."
+type PublishedDashboardEdge {
+    "The item at the end of the edge."
+    node: PublishedDashboard!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type PublishingConfiguration {
+    name: String!
+    previewFile: File
+    shortDescription: String!
+    tags: [Tag!]!
+}
+
+input PublishingParametersInput {
+    name: String!
+    shortDescription: String!
+    isSystem: Boolean!
+}
+
+type Query {
+    I18n: I18nQueries!
+    Calculations: CalculationsQueries!
+    Distribution: DistributionQueries!
+    Schedules: SchedulesQueries!
+    Ping: PingQueries!
+    Procore: ProcoreQueries!
+    Management: ManagementQueries!
+    DashboardLibrary: DashboardLibraryQueries!
+    Agave: AgaveQueries!
+    Settings: SettingsQueries!
+    Directory: DirectoryQueries!
+    Model: ModelQueries!
+    Auth: AuthQueries!
+    CustomImports: CustomImportsQueries!
+    Project: ProjectQueries!
+    Dashboard: DashboardQueries!
+    Data: DataQueries!
+
+    "Data partaining to the current user"
+    Viewer: ViewerQueryType!
+
+    "Data only accessible by the admin"
+    Admin: AdminQueryType!
+
+    "Fetches an object given its ID"
+    node(
+        "The ID of an object"
+        id: ID!): Node
+
+    "Fetches objects given their IDs"
+    nodes(
+        "The IDs of objects"
+        ids: [ID!]!): [Node]!
+}
+
+type QueueStatus {
+    inQueue: Long!
+    inProgress: Long!
+}
+
+type Range {
+    name: String!
+    grade: RangeGrade!
+    points: IntegerValueData!
+    maxExclusive: Float
+    minInclusive: Float
+}
+
+type RangeBracket {
+    name: String!
+    maxControlExclusive: Float
+    minControlInclusive: Float
+    ranges: [Range!]!
+}
+
+input RangeBracketInput {
+    name: String!
+    maxControlExclusive: Float
+    minControlInclusive: Float
+    ranges: [RangeInput!]!
+}
+
+enum RangeGrade {
+    VeryGood
+    Good
+    Ok
+    Bad
+    VeryBad
+}
+
+input RangeInput {
+    name: String!
+    grade: RangeGrade!
+    points: IntegerValueDataInput!
+    maxExclusive: Float
+    minInclusive: Float
+}
+
+input RawEmailRecipientInput {
+    token: String!
+    recipientType: RecipientType!
+    email: String!
+}
+
+interface Recipient {
+    recipientType: RecipientType!
+}
+
+input RecipientInput {
+    directoryUser: DirectoryUserRecipientInput
+    email: RawEmailRecipientInput
+}
+
+enum RecipientType {
+    directoryUser
+    email
+}
+
+"Data only accessible by the admin"
+type RedisAdminSchema {
+    QueueStatus: QueueStatus!
+}
+
+type ReferenceExtractorLogic implements CalculationLogic {
+    configuration: ReferenceExtractorLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type ReferenceExtractorLogicConfiguration implements CalculationLogicConfiguration {
+    fieldKey: String!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input ReferenceExtractorLogicConfigurationInput {
+    description: CalculationDescriptionInput!
+    fieldKey: String!
+}
+
+type ReferenceFieldType implements FieldType {
+    typeDefinitionId: ID!
+    kind: FieldTypeKind!
+    valueKind: ValueType!
+}
+
+input ReferenceFieldTypeInput {
+    valueKind: ValueTypeEnum!
+    typeDefinitionId: ID!
+}
+
+type ReferenceListValue implements ValueDataInterface {
+    latitude: TypeReference!
+    dataPointIds: [ID!]!
+    kind: ValueTypeEnum!
+}
+
+input ReferenceListValueInput {
+    typeReference: TypeReferenceInput!
+    dataPointIds: [ID!]!
+}
+
+type ReferenceValue implements ValueDataInterface {
+    typeReference: TypeReference!
+    dataPointId: ID!
+    kind: ValueTypeEnum!
+}
+
+input ReferenceValueInput {
+    typeReference: TypeReferenceInput!
+    dataPointId: ID!
+}
+
+type RegularSchedule implements ScheduleInterface {
+    kind: ScheduleKind!
+    every: EveryType!
+    firstDate: LocalDate!
+    increment: Int!
+}
+
+input RegularScheduleInput {
+    kind: String!
+    every: EveryType!
+    firstDate: LocalDate!
+    increment: Int!
+}
+
+input RemoveCellInput {
+    dashboardId: ID!
+    cellId: ID!
+    clientMutationId: String
+}
+
+type RemoveCellPayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+input RemoveUserFromAccountAdminInput {
+    accountId: ID!
+    userId: ID!
+    clientMutationId: String
+}
+
+type RemoveUserFromAccountAdminPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input RemoveUserFromAccountInput {
+    userId: ID!
+    clientMutationId: String
+}
+
+type RemoveUserFromAccountPayload {
+    deletedIds: [ID!]!
+    clientMutationId: String
+}
+
+input RenderWidgetsInput {
+    widgetDefinitions: [WidgetDefinitionInput!]!
+    context: WidgetGenerationContextInput
+    clientMutationId: String
+}
+
+type RenderWidgetsPayload {
+    widgets: [Widget!]!
+    clientMutationId: String
+}
+
+type RenderedStep {
+    scope: DataScope!
+    dataDate: LocalDate!
+    percentComplete: Float!
+}
+
+input ReplacementProjectInput {
+    source: ID!
+    target: ID!
+}
+
+input ResetProjectSpecificDataInput {
+    clientMutationId: String
+}
+
+type ResetProjectSpecificDataPayload {
+    clientMutationId: String
+}
+
+type ResponderListValueData implements ValueDataInterface {
+    responders: [ResponderValueData!]!
+    kind: ValueTypeEnum!
+}
+
+type ResponderValueData implements ValueDataInterface {
+    approverType: String!
+    responseType: String
+    sentAt: LocalDate
+    dueAt: LocalDate
+    returnedAt: LocalDate
+    user: String
+    kind: ValueTypeEnum!
+}
+
+input RetrieveWidgetFromCacheInput {
+    widgetDefinitions: [WidgetDefinitionInput!]!
+    context: WidgetGenerationContextInput
+    clientMutationId: String
+}
+
+type RetrieveWidgetFromCachePayload {
+    widgets: [Widget!]!
+    clientMutationId: String
+}
+
+interface RoundingOperation {
+    kind: RoundingOperationKindEnum!
+}
+
+input RoundingOperationInput {
+    doRound: DoRoundInput
+    dontRound: DontRoundInput
+}
+
+enum RoundingOperationKindEnum {
+    dontRound
+    doRound
+}
+
+enum RowStatusEnum {
+    Default
+    Inactive
+}
+
+input RunTaskExecutionInput {
+    taskExecutionId: ID!
+    clientMutationId: String
+}
+
+type RunTaskExecutionPayload {
+    taskExecution: TaskExecutionsEdge!
+    clientMutationId: String
+}
+
+type ScheduleFile {
+    "The ID of an object"
+    id: ID!
+    fileName: String!
+    isBaseline: Boolean!
+    isIgnored: Boolean!
+    file: File
+    uploadedAt: ZonedDateTime!
+    dataDate: LocalDate
+}
+
+"A connection to a list of items."
+type ScheduleFileConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [ScheduleFileEdge]
+}
+
+"An edge in a connection."
+type ScheduleFileEdge {
+    "The item at the end of the edge."
+    node: ScheduleFile!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+input ScheduleInput {
+    noSchedule: NoScheduleInput
+    regularSchedule: RegularScheduleInput
+}
+
+interface ScheduleInterface {
+    kind: ScheduleKind!
+}
+
+enum ScheduleKind {
+    noSchedule
+    regularSchedule
+}
+
+enum ScheduleStatus {
+    HasTasks
+    HasNoTasks
+}
+
+type SchedulesMutations {
+    deleteScheduleFile(input: DeleteScheduleFileInput!): DeleteScheduleFilePayload
+    setBaseline(input: SetBaselineInput!): SetBaselinePayload
+    setIgnored(input: SetIgnoredInput!): SetIgnoredPayload
+}
+
+type SchedulesQueries {
+    ScheduleFiles(before: String, after: String, first: Int, last: Int, projectId: ID): ScheduleFileConnection!
+}
+
+interface ScopedWidgetInput implements WidgetInput {
+    scope: DataScope!
+    portSelection: PortSelection!
+    kind: String!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+}
+
+type ScoreLogic implements CalculationLogic {
+    configuration: ScoreLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type ScoreLogicConfiguration implements CalculationLogicConfiguration {
+    ranges: [Range!]!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input ScoreLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    ranges: [RangeInput!]!
+}
+
+type ScoreValue implements ValueDataInterface {
+    points: IntegerValueData!
+    underlyingValue: Float
+    ranges: [Range!]!
+    kind: ValueTypeEnum!
+}
+
+type ScoreVisualization {
+    valuePercentage: Float!
+    ranges: [GradeAndPercentage!]!
+}
+
+type ScoreWithBracketsLogic implements CalculationLogic {
+    configuration: ScoreWithBracketsLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type ScoreWithBracketsLogicConfiguration implements CalculationLogicConfiguration {
+    rangeBrackets: [RangeBracket!]!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input ScoreWithBracketsLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    rangeBrackets: [RangeBracketInput!]!
+}
+
+type ScoreWithVisualizationValue implements ValueDataInterface {
+    score: ScoreValue!
+    visualization: ScoreVisualization
+    kind: ValueTypeEnum!
+}
+
+input SetAccountDomainsInput {
+    accountDomains: [String!]!
+    clientMutationId: String
+}
+
+type SetAccountDomainsPayload {
+    account: Account!
+    clientMutationId: String
+}
+
+input SetBaselineInput {
+    isBaseline: Boolean!
+    id: ID!
+    clientMutationId: String
+}
+
+type SetBaselinePayload {
+    scheduleFile: ScheduleFile!
+    clientMutationId: String
+}
+
+input SetCalculationLogicConfigurationInput {
+    calculationGraphId: ID!
+    calculationDefinitionId: ID!
+    configuration: CalculationLogicConfigurationInput!
+    clientMutationId: String
+}
+
+type SetCalculationLogicConfigurationPayload {
+    calculationGraph: CalculationGraph!
+    clientMutationId: String
+}
+
+input SetDataDateInput {
+    id: ID!
+    dataDate: LocalDate!
+    clientMutationId: String
+}
+
+type SetDataDatePayload {
+    importFile: ImportFile!
+    clientMutationId: String
+}
+
+input SetIgnoredInput {
+    isIgnored: Boolean!
+    id: ID!
+    clientMutationId: String
+}
+
+type SetIgnoredPayload {
+    scheduleFile: ScheduleFile!
+    clientMutationId: String
+}
+
+input SetIsFeaturedInput {
+    isFeatured: Boolean!
+    dashboardId: ID!
+    clientMutationId: String
+}
+
+type SetIsFeaturedPayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+input SetLayoutsInput {
+    dashboardId: ID!
+    layouts: [LayoutWithCellIdInput!]!
+    clientMutationId: String
+}
+
+type SetLayoutsPayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+input SetNameInput {
+    name: String!
+    dashboardId: ID!
+    clientMutationId: String
+}
+
+type SetNamePayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+input SetPositionInput {
+    calculationGraphId: ID!
+    position: CalculationPositionInput!
+    clientMutationId: String
+}
+
+type SetPositionPayload {
+    clientMutationId: String
+}
+
+input SetPositionsInput {
+    calculationGraphId: ID!
+    positions: [CalculationPositionInput!]!
+    clientMutationId: String
+}
+
+type SetPositionsPayload {
+    clientMutationId: String
+}
+
+input SetTagsInput {
+    dashboardId: ID!
+    tagIds: [ID!]!
+    clientMutationId: String
+}
+
+type SetTagsPayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+input SetWidgetDefinitionInput {
+    dashboardId: ID!
+    cellId: ID!
+    widgetDefinition: WidgetDefinitionInput!
+    clientMutationId: String
+}
+
+type SetWidgetDefinitionPayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+type SettingsMutations {
+    deleteIntegrationSettings(input: DeleteIntegrationSettingsInput!): DeleteIntegrationSettingsPayload
+}
+
+type SettingsQueries {
+    IntegrationSettings(before: String, after: String, first: Int, last: Int, filterByProject: ID): IntegrationSettingsConnection!
+}
+
+type ShowChanged implements DisplayOptions {
+    kind: DisplayOptionsKindEnum!
+    deltaInterpretation: DeltaInterpretation!
+}
+
+type ShowDelta implements DisplayOptions {
+    kind: DisplayOptionsKindEnum!
+    deltaResult: DeltaResult!
+    deltaInterpretation: DeltaInterpretation!
+}
+
+type ShowOutcome implements DisplayOptions {
+    kind: DisplayOptionsKindEnum!
+    deltaInterpretation: DeltaInterpretation!
+}
+
+interface SingleInputWidgetDefinition implements WidgetDefinition {
+    input: WidgetInput
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+type SourceLogic implements CalculationLogic {
+    configuration: SourceLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type SourceLogicConfiguration implements CalculationLogicConfiguration {
+    typeDefinition: TypeDefinition
+    resolution: SourceResolution!
+    stepSamplingMethod: StepSamplingMethod!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input SourceLogicConfigurationInput {
+    description: CalculationDescriptionInput!
+    resolution: SourceResolutionInput!
+    stepSamplingMethod: StepSamplingMethodInput!
+    typeDefinitionId: ID!
+}
+
+interface SourceResolution {
+    kind: SourceResolutionKindEnum!
+}
+
+input SourceResolutionInput {
+    dataSlice: ByDataSliceInput
+    parameter: ByParameterSliceInput
+    multipleProjects: MultipleProjectsParameterInput
+}
+
+enum SourceResolutionKindEnum {
+    dataSlice
+    parameter
+    multipleProjects
+}
+
+input SpecificProjectSelectedInput {
+    projectId: ID
+}
+
+type SpecificProjectSlice implements DataSlice {
+    project: Project
+    kind: DataSliceKindEnum!
+}
+
+type SpecificProjectsSelected implements DataSlice {
+    projects: [Project!]!
+    kind: DataSliceKindEnum!
+}
+
+input SpecificProjectsSelectedInput {
+    projectIds: [ID!]!
+}
+
+input StartPortfolioImportInput {
+    skipCache: Boolean!
+    clientMutationId: String
+}
+
+type StartPortfolioImportPayload {
+    batchUpdate: BatchUpdate
+    clientMutationId: String
+}
+
+type StatisticsLogic implements CalculationLogic {
+    configuration: StatisticsLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type StatisticsLogicConfiguration implements CalculationLogicConfiguration {
+    aggregateField: String!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input StatisticsLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    aggregateField: String!
+}
+
+interface StepSamplingMethod {
+    kind: StepSamplingMethodKindEnum!
+    onlyBaseline: Boolean!
+}
+
+input StepSamplingMethodInput {
+    all: AllAvailableDatesInput
+    betweenSnapshotDates: BetweenSnapshotDatesInput
+    betweenParameterSnapshotDates: BetweenParameterSnapshotDatesInput
+    closestToParameterSnapshotDate: ClosestToParameterSnapshotDateInput
+    closestToSpecificSnapshotDate: ClosestToSpecificSnapshotDateInput
+    previousClosestToParameterSnapshotDate: PreviousClosestToParameterSnapshotDateInput
+    previousClosestToSpecificSnapshotDate: PreviousClosestToSpecificSnapshotDateInput
+}
+
+enum StepSamplingMethodKindEnum {
+    all
+    betweenSnapshotDates
+    betweenParameterSnapshotDates
+    closestToParameterSnapshotDate
+    closestToSpecificSnapshotDate
+    previousClosestToSpecificSnapshotDate
+    previousClosestToParameterSnapshotDate
+}
+
+input StopProjectImportInput {
+    projectId: ID!
+    clientMutationId: String
+}
+
+type StopProjectImportPayload {
+    batchUpdate: BatchUpdate!
+    clientMutationId: String
+}
+
+"The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text."
+scalar String
+
+type StringListValueData implements ValueDataInterface {
+    stringList: [String!]!
+    kind: ValueTypeEnum!
+}
+
+input StringListValueDataInput {
+    stringList: [String!]!
+}
+
+type StringValueData implements ValueDataInterface {
+    string: String!
+    kind: ValueTypeEnum!
+}
+
+input StringValueDataInput {
+    string: String!
+}
+
+type Subscription {
+    subscribeToBatch(batchType: BatchType!): BatchUpdate!
+    subscribeToWidgetUpdates: [Widget!]!
+}
+
+input SwitchAccountInput {
+    refreshToken: String!
+    targetAccount: ID!
+    clientMutationId: String
+}
+
+type SwitchAccountPayload {
+    jwtTokens: JwtLoginInformation!
+    clientMutationId: String
+}
+
+type TableAtStep {
+    dataDate: LocalDate!
+    percentComplete: Float!
+    data: TableData!
+}
+
+interface TableColumnDefinition {
+    name: String!
+    kind: TableColumnDefinitionKind!
+}
+
+input TableColumnDefinitionInput {
+    actionColumn: ActionColumnDefinitionInput
+    fieldColumn: FieldColumnDefinitionInput
+    calculationColumn: CalculationColumnDefinitionInput
+}
+
+enum TableColumnDefinitionKind {
+    actionColumn
+    fieldColumn
+    calculationColumn
+}
+
+interface TableData {
+    kind: TableDataKind!
+}
+
+enum TableDataKind {
+    calculationSource
+    dataPoints
+}
+
+interface TableDataSource {
+    kind: TableDataSourceKind!
+}
+
+input TableDataSourceInput {
+    calculation: CalculationDataSourceInput
+    dataType: DataTypeDataSourceInput
+}
+
+enum TableDataSourceKind {
+    calculation
+    dataType
+}
+
+interface TableModelCell {
+    kind: CellKindEnum!
+    columnKey: String!
+}
+
+type TableModelColumn {
+    name: String!
+    valueKind: ValueTypeEnum!
+    tooltip: String
+    columnKey: String!
+}
+
+type TableModelOutput {
+    columnDefinitions: [TableModelColumn!]!
+    rows: [TableModelRow!]!
+}
+
+type TableModelRow {
+    "The ID of an object"
+    rowId: ID!
+    cells: [TableModelCell!]!
+    rowStatus: RowStatusEnum!
+}
+
+type TableWidgetDefinition implements SingleInputWidgetDefinition & WidgetDefinition {
+    dataSource: TableDataSource!
+    columnDefinitions: [TableColumnDefinition!]!
+    sort: ModelSort
+    filters: [DataPointFilter!]!
+    kind: WidgetType!
+    input: WidgetInput
+    title: String
+    widgetDefinitionString: String!
+}
+
+input TableWidgetDefinitionInput {
+    dataSource: TableDataSourceInput!
+    columnDefinitions: [TableColumnDefinitionInput!]!
+    title: String
+    filters: [DataPointFilterInput!]!
+    sort: ModelSortInput
+}
+
+type TableWidgetInput implements ScopedWidgetInput & WidgetInput {
+    scope: DataScope!
+    portSelection: PortSelection!
+    kind: String!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+}
+
+input TableWidgetInputInput {
+    portSelection: PortSelectionInput!
+    scope: DataScopeInput!
+    conversion: ConversionOperationInput!
+    rounding: RoundingOperationInput!
+}
+
+type TableWidgetPayload implements WidgetPayload {
+    widgetDefinition: TableWidgetDefinition!
+    tables: [TableAtStep!]!
+    renderedTable(tableIndex: Int!): TableModelOutput!
+    renderedSteps: [RenderedStep!]!
+}
+
+type Tag {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    shortDescription: String!
+    description: String!
+    color: String!
+    hierarchy: HierarchySettings!
+}
+
+"A connection to a list of items."
+type TagConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [TagEdge]
+}
+
+input TagDataInput {
+    name: String!
+    shortDescription: String!
+    description: String!
+    color: String
+    hierarchy: HierarchySettingsInput!
+}
+
+"An edge in a connection."
+type TagEdge {
+    "The item at the end of the edge."
+    node: Tag!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type TagMutations {
+    deleteTag(input: DeleteTagInput!): DeleteTagPayload
+}
+
+type TagNode implements TreeNodeInterface {
+    id: ID!
+    parentOpt: ID
+    color: String!
+    childrenIds: [ID!]!
+    kind: TreeNodeKind!
+    name: String!
+    description: String
+}
+
+enum TakeRule {
+    Highest
+    Lowest
+}
+
+type TaskExecution {
+    "The ID of an object"
+    id: ID!
+    strategy: String!
+    lastTry: ZonedDateTime
+    runAfter: ZonedDateTime
+    dontCleanUp: Boolean!
+    status: TaskExecutionStatus!
+    statusMessage: String!
+    created: ZonedDateTime!
+}
+
+enum TaskExecutionStatus {
+    open
+    firstFail
+    secondFail
+    failedPermanently
+    success
+    inProgress
+}
+
+enum TaskExecutionStatusInput {
+    open
+    firstFail
+    secondFail
+    failedPermanently
+    success
+    inProgress
+}
+
+"A connection to a list of items."
+type TaskExecutionsConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [TaskExecutionsEdge]
+}
+
+"An edge in a connection."
+type TaskExecutionsEdge {
+    "The item at the end of the edge."
+    node: TaskExecution!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+"Data only accessible by the admin"
+type TasksAdminMutationSchema {
+    deleteTaskExecution(input: DeleteTaskExecutionInput!): DeleteTaskExecutionPayload
+    runTask(input: RunTaskExecutionInput!): RunTaskExecutionPayload
+}
+
+type TextWidgetDefinition implements WidgetDefinition {
+    text: String!
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input TextWidgetDefinitionInput {
+    title: String
+    text: String!
+}
+
+type TextWidgetPayload implements WidgetPayload {
+    text: String!
+    widgetDefinition: WidgetDefinition!
+    renderedSteps: [RenderedStep!]!
+}
+
+input TransferTestDataInput {
+    sourceProject: ID!
+    targetAccount: ID!
+    clientMutationId: String
+}
+
+type TransferTestDataPayload {
+    clientMutationId: String
+}
+
+interface TreeNodeInterface {
+    id: ID!
+    kind: TreeNodeKind!
+    name: String!
+    description: String
+}
+
+enum TreeNodeKind {
+    tag
+    portSelection
+}
+
+type TypeDefinition implements Node {
+    "The ID of an object"
+    id: ID!
+    key: String!
+    name: String!
+    isBuiltIn: Boolean!
+    isSteppable: Boolean!
+    isBase: Boolean!
+    fieldDefinitions: [FieldDefinition!]!
+}
+
+"A connection to a list of items."
+type TypeDefinitionConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [TypeDefinitionEdge]
+}
+
+"An edge in a connection."
+type TypeDefinitionEdge {
+    "The item at the end of the edge."
+    node: TypeDefinition!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+interface TypeReference {
+    kind: String!
+}
+
+input TypeReferenceInput {
+    known: KnownTypeReferenceInput
+}
+
+input UpdatePersonalizedEmailTemplateInput {
+    data: PersonalizedEmailTemplateInput!
+    id: ID!
+    clientMutationId: String
+}
+
+type UpdatePersonalizedEmailTemplatePayload {
+    data: PersonalizedEmailTemplatesEdge!
+    clientMutationId: String
+}
+
+input UpdatePreviewInput {
+    dashboardId: ID!
+    previewFileRef: ID!
+    clientMutationId: String
+}
+
+type UpdatePreviewPayload {
+    dashboard: Dashboard!
+    clientMutationId: String
+}
+
+type User implements Node {
+    "The ID of an object"
+    id: ID!
+    activated: Boolean!
+    name: String!
+    email: String!
+    groupAssociations: [UserGroupAssociation!]!
+    isDeleted: Boolean!
+    registeredAt: ZonedDateTime!
+    extensions: [UserExtension!]!
+    extension(userExtensionKind: UserExtensionKind!): UserExtension
+}
+
+"A connection to a list of items."
+type UserConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [UserEdge]
+}
+
+"An edge in a connection."
+type UserEdge {
+    "The item at the end of the edge."
+    node: User!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+interface UserExtension {
+    kind: UserExtensionKind!
+}
+
+enum UserExtensionKind {
+    Projexion
+}
+
+type UserGroupAssociation {
+    account: Account
+    group: UserInAccountGroup
+}
+
+type UserInAccount implements Node {
+    "The ID of an object"
+    id: ID!
+    user: User!
+    groups: [UserInAccountGroup!]!
+}
+
+"A connection to a list of items."
+type UserInAccountConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [UserInAccountEdge]
+}
+
+"An edge in a connection."
+type UserInAccountEdge {
+    "The item at the end of the edge."
+    node: UserInAccount!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type UserInAccountGroup implements Node {
+    "The ID of an object"
+    id: ID!
+    name: String!
+    permissions: [Permission!]!
+    isBuiltIn: Boolean!
+}
+
+"A connection to a list of items."
+type UserInAccountGroupsConnection {
+    "Information to aid in pagination."
+    pageInfo: PageInfo!
+
+    "A list of edges."
+    edges: [UserInAccountGroupsEdge]
+}
+
+"An edge in a connection."
+type UserInAccountGroupsEdge {
+    "The item at the end of the edge."
+    node: UserInAccountGroup!
+
+    "A cursor for use in pagination."
+    cursor: String!
+}
+
+type ValueAtDataDate {
+    dataDate: LocalDate!
+    valueData: ValueDataInterface!
+    delta: Delta
+    percentComplete: Float!
+}
+
+type ValueCell implements TableModelCell {
+    columnKey: String!
+    value: ValueDataInterface!
+    displayOptions: DisplayOptions!
+    kind: CellKindEnum!
+}
+
+input ValueDataInput {
+    EntityLink: EntityLinkValueDataInput
+    Error: ErrorValueDataInput
+    Boolean: BooleanValueDataInput
+    ExternalLink: ExternalLinkValueDataInput
+    Integer: IntegerValueDataInput
+    DateTime: DateTimeValueInput
+    DateTimeRange: DateTimeRangeValueDataInput
+    Days: DaysValueDataInput
+    Check: CheckValueDataInput
+    String: StringValueDataInput
+    StringList: StringListValueDataInput
+    Histogram: HistogramValueDataInput
+    Double: DoubleValueDataInput
+    DecimalRange: DecimalRangeValueDataInput
+    Reference: ReferenceValueInput
+    Currency: CurrencyValueDataInput
+    ReferenceList: ReferenceListValueInput
+    Gps: GpsValueInput
+    Null: NullValueDataInput
+    Percentage: PercentageValueDataInput
+    Identifier: IdentifierValueInput
+    Date: DateValueInput
+}
+
+interface ValueDataInterface {
+    kind: ValueTypeEnum!
+}
+
+type ValueOperand implements OperandInterface {
+    value: ValueDataInterface!
+    kind: OperandKindEnum!
+}
+
+input ValueOperandInput {
+    valueData: ValueDataInput!
+}
+
+enum ValueOperatorEnum {
+    Contains
+    GreaterThanOrEqual
+    GreaterThan
+    Equal
+    LesserThan
+    LesserThanOrEqual
+    NotEqual
+    Within
+    IsEmpty
+    NotEmpty
+}
+
+type ValueOutput implements FixedOutput {
+    value: ValueDataInterface!
+    kind: FixedOutputKind!
+}
+
+input ValueOutputInput {
+    value: ValueDataInput!
+}
+
+type ValuePayload implements PortPayload {
+    dataType: ValueTypeEnum!
+    kind: PortPayloadKind!
+}
+
+type ValuePoint implements XyDataPointInterface {
+    kind: XyDataPointTypeEnum!
+    parameterSet: ParameterSet!
+    value: ValueDataInterface!
+    xAxisCoordinates: XAxisCoordinates!
+    yAxisCoordinates: YAxisCoordinates!
+}
+
+type ValueReferenceLogic implements CalculationLogic {
+    configuration: ValueReferenceLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type ValueReferenceLogicConfiguration implements CalculationLogicConfiguration {
+    portTarget: PortSelection
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input ValueReferenceLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    portTarget: PortSelectionInput
+}
+
+type ValueType {
+    valueKind: ValueTypeEnum!
+    canRound: Boolean!
+    canConvertTo: [ValueTypeEnum!]!
+    compatibleOperations: [CompatibleOperations!]!
+}
+
+enum ValueTypeEnum {
+    Boolean
+    Check
+    Currency
+    DateTime
+    Date
+    DateTimeRange
+    Days
+    DecimalRange
+    String
+    Double
+    DoubleWithPayload
+    Error
+    Gps
+    Histogram
+    Integer
+    ExternalLink
+    Link
+    Null
+    Percentage
+    Responder
+    ResponderList
+    score
+    ScoreWithVisualization
+    SquaredDoubleBased
+    StringList
+    DoubleValueAndValue
+    Reference
+    ReferenceList
+    Identifier
+    EntityLink
+}
+
+type Version {
+    version: String!
+}
+
+"Data only accessible by the admin"
+type VersionsAdminSchema {
+    Version: Version!
+}
+
+"Data partaining to the current user"
+type ViewerQueryType {
+    Auth: AuthViewerSchema!
+    Integrations: IntegrationsViewerSchema!
+    Batch: BatchViewerSchema!
+}
+
+enum VisibilityTypeEnum {
+    Hidden
+    OnlyAdmins
+    Everybody
+}
+
+type Weight {
+    inputPortId: ID!
+    weight: Float
+}
+
+type WeightBracket {
+    name: String!
+    maxControlExclusive: Float
+    minControlInclusive: Float
+    weights: [Weight!]!
+}
+
+input WeightBracketInput {
+    name: String!
+    maxControlExclusive: Float
+    minControlInclusive: Float
+    weights: [WeightInput!]!
+}
+
+input WeightInput {
+    inputPortId: ID!
+    weight: Float
+}
+
+type WeightedAverageLogic implements CalculationLogic {
+    configuration: WeightedAverageLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type WeightedAverageLogicConfiguration implements CalculationLogicConfiguration {
+    weights: [Weight!]!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input WeightedAverageLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    weights: [WeightInput!]!
+}
+
+type WeightedAverageWithBracketsLogic implements CalculationLogic {
+    configuration: WeightedAverageWithBracketsLogicConfiguration!
+    kind: CalculationConfigurationKind!
+    inputPorts: [InputPort!]!
+    outputPorts: [OutputPort!]!
+}
+
+type WeightedAverageWithBracketsLogicConfiguration implements CalculationLogicConfiguration {
+    weightBrackets: [WeightBracket!]!
+    description: CalculationDescription!
+    kind: CalculationConfigurationKind!
+}
+
+input WeightedAverageWithBracketsLogicConfigurationInput {
+    kind: String!
+    description: CalculationDescriptionInput!
+    weightBrackets: [WeightBracketInput!]!
+}
+
+type Widget implements Node {
+    "The ID of an object"
+    id: ID!
+    payload: WidgetUpdatePayload!
+    kind: WidgetType!
+}
+
+interface WidgetDefinition {
+    kind: WidgetType!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input WidgetDefinitionInput {
+    file: FileWidgetDefinitionInput
+    multiValue: MultiValueWidgetDefinitionInput
+    text: TextWidgetDefinitionInput
+    xyGraph: XyGraphWidgetDefinitionInput
+    pieChart: PieChartWidgetDefinitionInput
+    map: MapWidgetDefinitionInput
+    projectData: ProjectDataWidgetDefinitionInput
+    AISummary: AISummaryWidgetDefinitionInput
+    histogram: HistogramWidgetDefinitionInput
+    table: TableWidgetDefinitionInput
+}
+
+type WidgetGenerationCompleted implements WidgetUpdatePayload {
+    widget: WidgetPayload!
+    request: WidgetGenerationRequest!
+    kind: WidgetUpdatePayloadKind!
+    telemetry: WidgetGenerationTelemetry!
+}
+
+type WidgetGenerationContext {
+    projectFilters: [DataPointFilter!]!
+    calculationResolution: CalculationResolutionEnum!
+}
+
+input WidgetGenerationContextInput {
+    projectFilters: [DataPointFilterInput!]!
+    calculationResolution: CalculationResolutionEnum!
+}
+
+type WidgetGenerationFailed implements WidgetUpdatePayload {
+    error: ErrorReason!
+    request: WidgetGenerationRequest!
+    kind: WidgetUpdatePayloadKind!
+    telemetry: WidgetGenerationTelemetry!
+}
+
+type WidgetGenerationInProgress implements WidgetUpdatePayload {
+    widget: WidgetPayload!
+    request: WidgetGenerationRequest!
+    kind: WidgetUpdatePayloadKind!
+    telemetry: WidgetGenerationTelemetry!
+}
+
+type WidgetGenerationRequest {
+    widgetDefinition: WidgetDefinition!
+    cacheHash: Int!
+    context: WidgetGenerationContext!
+}
+
+type WidgetGenerationStarted implements WidgetUpdatePayload {
+    request: WidgetGenerationRequest!
+    kind: WidgetUpdatePayloadKind!
+    telemetry: WidgetGenerationTelemetry!
+}
+
+type WidgetGenerationTelemetry {
+    started: ZonedDateTime!
+    finished: ZonedDateTime
+    timeTakenInSeconds: Long
+    messages: [ExecutionLogMessage!]!
+}
+
+interface WidgetInput {
+    portSelection: PortSelection!
+    kind: String!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+}
+
+interface WidgetPayload {
+    widgetDefinition: WidgetDefinition!
+    renderedSteps: [RenderedStep!]!
+}
+
+enum WidgetType {
+    multiValue
+    pieChart
+    histogram
+    table
+    xyGraph
+    map
+    text
+    projectData
+    file
+    AISummary
+}
+
+interface WidgetUpdatePayload {
+    request: WidgetGenerationRequest!
+    kind: WidgetUpdatePayloadKind!
+    telemetry: WidgetGenerationTelemetry!
+}
+
+enum WidgetUpdatePayloadKind {
+    completed
+    generationInProgress
+    failed
+    started
+}
+
+type Wiring {
+    "The ID of an object"
+    id: ID!
+    fromPort: ID!
+    fromCalculation: ID!
+    toPort: ID!
+    toCalculation: ID!
+    payload: PortPayload!
+}
+
+interface XAxis {
+    axisId: Int!
+    kind: XAxisType!
+    scopes: [DataScope!]!
+}
+
+type XAxisCoordinates {
+    axisId: Int!
+    tickId: ID!
+}
+
+enum XAxisModeEnum {
+    Multiple
+    Percentage
+}
+
+interface XAxisTick {
+    "The ID of an object"
+    id: ID!
+    kind: XAxisType!
+}
+
+enum XAxisType {
+    Calendar
+    Percentage
+}
+
+type XSLXInterpretation implements Interpretation {
+    columnMappings: [ColumnMapping!]!
+    kind: InterpretationKindEnum!
+    targetType: ID!
+}
+
+input XSLXInterpretationInput {
+    targetType: ID!
+    columnMappings: [ColumnMappingInput!]!
+}
+
+type XyCurve {
+    label: String!
+    scope: DataScope!
+    portSelection: PortSelection!
+    stack: Int!
+    color: String
+    curveType: CurveTypeEnum!
+    valueKind: ValueTypeEnum!
+    dataPoints: [XyDataPointInterface!]!
+    xAxisId: Int!
+    yAxisId: Int!
+}
+
+interface XyDataPointInterface {
+    kind: XyDataPointTypeEnum!
+    xAxisCoordinates: XAxisCoordinates!
+    yAxisCoordinates: YAxisCoordinates!
+}
+
+enum XyDataPointTypeEnum {
+    ValuePoint
+    Null
+}
+
+type XyGraphWidgetDefinition implements MultiInputWidgetDefinition & WidgetDefinition {
+    kind: WidgetType!
+    xAxisMode: XAxisModeEnum!
+    inputs: [XyGraphWidgetInput!]!
+    title: String
+    widgetDefinitionString: String!
+}
+
+input XyGraphWidgetDefinitionInput {
+    inputs: [XyGraphWidgetInputInput!]!
+    title: String
+    xAxisMode: XAxisModeEnum!
+}
+
+type XyGraphWidgetInput implements ScopedWidgetInput & WidgetInput {
+    curveType: CurveTypeEnum
+    color: String
+    stack: Int
+    scope: DataScope!
+    portSelection: PortSelection!
+    kind: String!
+    conversion: ConversionOperation!
+    rounding: RoundingOperation!
+}
+
+input XyGraphWidgetInputInput {
+    portSelection: PortSelectionInput!
+    scope: DataScopeInput!
+    color: String
+    stack: Int
+    curveType: CurveTypeEnum
+    conversion: ConversionOperationInput!
+    rounding: RoundingOperationInput!
+}
+
+type XyGraphWidgetPayload implements WidgetPayload {
+    widgetDefinition: XyGraphWidgetDefinition!
+    xAxes: [XAxis!]!
+    yAxes: [YAxis!]!
+    curves: [XyCurve!]!
+    renderedSteps: [RenderedStep!]!
+}
+
+type YAxis {
+    axisId: Int!
+    kind: ValueTypeEnum!
+}
+
+type YAxisCoordinates {
+    axisId: Int!
+}
+
+scalar ZonedDateTime
+
+"""
+A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
+
+In some cases, you need to provide options to alter GraphQL’s execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
+"""
+type __Directive {
+    name: String!
+    description: String
+    locations: [__DirectiveLocation!]!
+    args(includeDeprecated: Boolean = false): [__InputValue!]!
+
+    "Permits using the directive multiple times at the same location."
+    isRepeatable: Boolean!
+}
+
+"A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies."
+enum __DirectiveLocation {
+    "Location adjacent to a query operation."
+    QUERY
+
+    "Location adjacent to a mutation operation."
+    MUTATION
+
+    "Location adjacent to a subscription operation."
+    SUBSCRIPTION
+
+    "Location adjacent to a field."
+    FIELD
+
+    "Location adjacent to a fragment definition."
+    FRAGMENT_DEFINITION
+
+    "Location adjacent to a fragment spread."
+    FRAGMENT_SPREAD
+
+    "Location adjacent to an inline fragment."
+    INLINE_FRAGMENT
+
+    "Location adjacent to a variable definition."
+    VARIABLE_DEFINITION
+
+    "Location adjacent to a schema definition."
+    SCHEMA
+
+    "Location adjacent to a scalar definition."
+    SCALAR
+
+    "Location adjacent to an object type definition."
+    OBJECT
+
+    "Location adjacent to a field definition."
+    FIELD_DEFINITION
+
+    "Location adjacent to an argument definition."
+    ARGUMENT_DEFINITION
+
+    "Location adjacent to an interface definition."
+    INTERFACE
+
+    "Location adjacent to a union definition."
+    UNION
+
+    "Location adjacent to an enum definition."
+    ENUM
+
+    "Location adjacent to an enum value definition."
+    ENUM_VALUE
+
+    "INPUT_OBJECT"
+    INPUT_OBJECT
+
+    "Location adjacent to an input object field definition."
+    INPUT_FIELD_DEFINITION
+}
+
+"One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string."
+type __EnumValue {
+    name: String!
+    description: String
+    isDeprecated: Boolean!
+    deprecationReason: String
+}
+
+"Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type."
+type __Field {
+    name: String!
+    description: String
+    args(includeDeprecated: Boolean = false): [__InputValue!]!
+    type: __Type!
+    isDeprecated: Boolean!
+    deprecationReason: String
+}
+
+"Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value."
+type __InputValue {
+    name: String!
+    description: String
+    type: __Type!
+
+    "A GraphQL-formatted string representing the default value for this input value."
+    defaultValue: String
+    isDeprecated: Boolean
+    deprecationReason: String
+}
+
+"A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations."
+type __Schema {
+    description: String
+
+    "A list of all types supported by this server."
+    types: [__Type!]!
+
+    "The type that query operations will be rooted at."
+    queryType: __Type!
+
+    "If this server supports mutation, the type that mutation operations will be rooted at."
+    mutationType: __Type
+
+    "If this server support subscription, the type that subscription operations will be rooted at."
+    subscriptionType: __Type
+
+    "A list of all directives supported by this server."
+    directives: [__Directive!]!
+}
+
+"""
+The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
+
+Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
+"""
+type __Type {
+    kind: __TypeKind!
+    name: String
+    description: String
+    fields(includeDeprecated: Boolean = false): [__Field!]
+    interfaces: [__Type!]
+    possibleTypes: [__Type!]
+    enumValues(includeDeprecated: Boolean = false): [__EnumValue!]
+    inputFields(includeDeprecated: Boolean = false): [__InputValue!]
+    ofType: __Type
+}
+
+"An enum describing what kind of type a given `__Type` is."
+enum __TypeKind {
+    "Indicates this type is a scalar."
+    SCALAR
+
+    "Indicates this type is an object. `fields` and `interfaces` are valid fields."
+    OBJECT
+
+    "Indicates this type is an interface. `fields` and `possibleTypes` are valid fields."
+    INTERFACE
+
+    "Indicates this type is a union. `possibleTypes` is a valid field."
+    UNION
+
+    "Indicates this type is an enum. `enumValues` is a valid field."
+    ENUM
+
+    "Indicates this type is an input object. `inputFields` is a valid field."
+    INPUT_OBJECT
+
+    "Indicates this type is a list. `ofType` is a valid field."
+    LIST
+
+    "Indicates this type is a non-null. `ofType` is a valid field."
+    NON_NULL
+}
+
+"Marks an element of a GraphQL schema as no longer supported."
+directive @deprecated(
+    "Explains why this element was deprecated, usually also including a suggestion for how to access supported similar data. Formatted in [Markdown](https://daringfireball.net/projects/markdown/)."
+    reason: String = "No longer supported") on ARGUMENT_DEFINITION | ENUM_VALUE | FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+
+"Directs the executor to include this field or fragment only when the `if` argument is true."
+directive @include(
+    "Included when true."
+    if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+"Indicates exactly one field must be supplied and this field must not be `null`."
+directive @oneOf on INPUT_OBJECT
+
+"Directs the executor to skip this field or fragment when the `if` argument is true."
+directive @skip(
+    "Included when true."
+    if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT

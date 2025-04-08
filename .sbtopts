@@ -1,0 +1,3 @@
+-J-Xms512M
+-J-Xmx20G
+-J-Xss1M
