@@ -2821,7 +2821,6 @@ type IntegrationSettings {
     id: ID!
     integration: Integration!
     scope: DataScopeTypeEnum!
-    data: IntegrationSettingsDataInterface!
 }
 
 "A connection to a list of items."
@@ -2831,10 +2830,6 @@ type IntegrationSettingsConnection {
 
     "A list of edges."
     edges: [IntegrationSettingsEdge]
-}
-
-interface IntegrationSettingsDataInterface {
-    integration: Integration!
 }
 
 "An edge in a connection."
@@ -4990,7 +4985,7 @@ type ValueCell implements TableModelCell {
     kind: CellKindEnum!
 }
 
-input ValueDataInput {
+input ValueDataInput @oneOf{
     EntityLink: EntityLinkValueDataInput
     Error: ErrorValueDataInput
     Boolean: BooleanValueDataInput

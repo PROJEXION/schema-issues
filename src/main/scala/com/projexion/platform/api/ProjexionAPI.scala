@@ -1,8 +1,6 @@
 package com.projexion.platform.api
 
 import caliban.*
-import caliban.schema.ArgBuilder.auto.*
-import caliban.schema.Schema.auto.*
 import caliban.wrappers.ApolloTracing.apolloTracing
 import caliban.wrappers.IncrementalDelivery
 import caliban.wrappers.Wrappers.*
